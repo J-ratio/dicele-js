@@ -154,7 +154,7 @@ function BackToGame() {
             );
         }
 
-        document.getElementById("win-stars").innerHTML = stars;
+        document.querySelector("[data-field=win-stars]").innerHTML = stars;
 
         document.querySelector("[data-field=win-comment]").innerHTML =
             winComment;
@@ -450,7 +450,7 @@ function gameFinish(won, movesRemaining, state, timeSpent) {
                 '<img src="/images/no_star.png" class="finish-star" />'
             );
         }
-        document.getElementById("win-stars").innerHTML = stars;
+        document.querySelector("[data-field=win-stars]").innerHTML = stars;
         document.querySelector("[data-field=win-comment]").innerHTML =
             winComment;
     } else {
@@ -595,7 +595,7 @@ function gameArchiveFinish(won) {
                     '<img src="/images/no_star.png" class="finish-star" />'
                 );
             }
-            document.getElementById("win-stars").innerHTML = stars;
+            document.querySelector("[data-field=win-stars]").innerHTML = stars;
             document.querySelector("[data-field=win-comment]").innerHTML =
                 winComment;
         } else {
@@ -998,7 +998,7 @@ if (localStorage.LastSolveDate) {
             );
         }
 
-        document.getElementById("win-stars").innerHTML = stars;
+        document.querySelector("[data-field=win-stars]").innerHTML = stars;
 
         document.querySelector("[data-field=win-comment]").innerHTML =
             winComment;
