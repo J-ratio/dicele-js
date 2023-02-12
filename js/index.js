@@ -350,7 +350,7 @@ const newUser = localStorage.getItem("data") === null;
     state, // Current game state
     playTime, // Total gameplay time (upto last move)
     startTime, // Timestamp of the previous move
-    scores, // Max score of user for each level played
+    levels, // Stats of user for each level played
  }
  */
 
@@ -363,7 +363,7 @@ let data = newUser
           state: SpawnArr[0],
           playTime: 0,
           startTime: Date.now(),
-          scores: [],
+          levels: [],
       }
     : JSON.parse(localStorage.getItem("data"));
 
@@ -378,17 +378,50 @@ function updateLocalStorage() {
             state,
             playTime,
             startTime,
-            scores,
+            levels,
         })
     );
 }
 
-let { userID, level, moves, adCount, state, startTime, playTime, scores } =
+let { userID, level, moves, adCount, state, startTime, playTime, levels } =
     data;
 let matches;
 const solution = Array.from(SolutionArr[level]);
 writeBoard();
 updateLocalStorage();
+
+function fillArchive() {
+    const list = levels
+        .map(
+            (level, index) => `
+                        <div class="archive-list-item">
+                            <div class="archive-list-item-left">
+                                <div class="archive-list-item-number"># ${
+                                    index + 1
+                                }</div>
+                                <div class="archive-list-item-score">${score}: ${
+                level.score
+            }</div>
+                            </div>
+                            <div class="archive-list-item-right">
+                                ${`<img
+                                    src="/images/star.png"
+                                    class="archive-list-item-right-icon"
+                                />`
+                                    .repeat(level.starsCount)
+                                    .concat(
+                                        `<img
+                                    src="/images/no_star.png"
+                                    class="archive-list-item-right-icon"
+                                />`.repeat(5 - level.starsCount)
+                                    )}
+                            </div>
+                        </div>`
+        )
+        .reverse()
+        .join("");
+    document.getElementById("archive-list").innerHTML = list;
+}
 
 function initBoard() {
     moves = 21;
@@ -401,7 +434,9 @@ function initBoard() {
     document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
     updateSums();
+    fillArchive();
 }
+
 
 if (newUser) {
     initBoard();
@@ -409,6 +444,7 @@ if (newUser) {
     document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
     updateSums();
+    fillArchive();
 }
 
 function updateSums() {
@@ -628,18 +664,18 @@ function showWinScreen() {
     const score = calculateScore();
     let highScore = score;
     const starsCount = adCount === 0 ? (moves >= 5 ? 5 : 5 - moves) : 0;
-    if (scores[level]) {
-        if (score > scores[level].score) {
-            scores[level] = {
+    if (levels[level]) {
+        if (score > levels[level].score) {
+            levels[level] = {
                 score,
                 starsCount,
             };
             updateLocalStorage();
         } else {
-            highScore = scores[level].score;
+            highScore = levels[level].score;
         }
     } else {
-        scores[level] = {
+        levels[level] = {
             score,
             starsCount,
         };
@@ -650,7 +686,7 @@ function showWinScreen() {
         "[data-rank-type=level] > .ranking-grid > [data-field=score-self]"
     ).innerHTML = highScore;
     let overallScore = 0;
-    scores.forEach((score) => (overallScore += score.score));
+    levels.forEach((level) => (overallScore += level.score));
     document.querySelector(
         "[data-rank-type=global] > .ranking-grid > [data-field=score-self]"
     ).innerHTML = overallScore;
@@ -675,7 +711,7 @@ function showWinScreen() {
                     ele.innerHTML = `
                         <div class="ranking-grid">
                             <span class="rank-number">${index + 1}</span>
-                            <span class="rank-name">RANK ${index + 1}</span>
+                            <span class="rank-name">${rank} ${index + 1}</span>
                             <span class="rank-score">${
                                 data.daily[index].score
                             }</span>
@@ -687,7 +723,7 @@ function showWinScreen() {
                     ele.innerHTML = `
                         <div class="ranking-grid">
                             <span class="rank-number">${index + 1}</span>
-                            <span class="rank-name">RANK ${index + 1}</span>
+                            <span class="rank-name">${rank} ${index + 1}</span>
                             <span class="rank-score">${
                                 data.overall[index].score
                             }</span>
@@ -704,7 +740,7 @@ function showWinScreen() {
         .catch((err) => console.error(err));
     openModal("win-modal");
     level++;
-    updateLocalStorage();
+    initBoard();
 }
 
 function showLoseScreen() {
