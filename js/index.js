@@ -337,12 +337,9 @@ const SolutionArr = [
 ];
 
 const board = document.getElementById("board");
+const backendURL = "https://t40kg29ey5.execute-api.us-east-1.amazonaws.com";
 
 const newUser = localStorage.getItem("data") === null;
-
-if (newUser) {
-    openModal("help-modal");
-}
 
 /*
  * data: {
@@ -403,6 +400,18 @@ function initBoard() {
     writeBoard();
     document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
+    updateSums();
+}
+
+if (newUser) {
+    initBoard();
+} else {
+    document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+    document.querySelector(".game-number").innerHTML = `${level + 1}`;
+    updateSums();
+}
+
+function updateSums() {
     document.querySelectorAll(".sum").forEach((element, index) => {
         switch (index) {
             case 0:
@@ -477,8 +486,6 @@ function initBoard() {
         }
     });
 }
-
-initBoard();
 
 function check(index, solution, state) {
     const value = Number(state[index]);
@@ -562,6 +569,7 @@ var sortable = Sortable.create(board, {
         checkMatched();
 
         if (matches === 21) {
+            updateLocalStorage();
             showWinScreen();
         }
 
@@ -583,8 +591,14 @@ function formatTime() {
 }
 
 function calculateScore() {
-    // TODO: Score calculation
-    return 0;
+    let tb = (300 - playTime) * 2;
+    if (tb > 500) tb = 500;
+    else if (tb < 20) tb = 20;
+
+    let mb = (21 - moves) * 100;
+    if (mb < 0) mb = 0;
+
+    return 1000 + tb + mb;
 }
 
 function showWinScreen() {
@@ -608,19 +622,89 @@ function showWinScreen() {
     }
     document.querySelector("[data-field=win-stars]").innerHTML = stars;
     document.querySelector("[data-field=finish-moves]").innerHTML = `${
-        21 - moves + adCount * 5
+        moves > 0 ? 21 - moves : 21
     }/21`;
     document.querySelector("[data-field=finish-time]").innerHTML = formatTime();
     const score = calculateScore();
+    let highScore = score;
     const starsCount = adCount === 0 ? (moves >= 5 ? 5 : 5 - moves) : 0;
-    if (scores[level] && score > scores[level].score)
+    if (scores[level]) {
+        if (score > scores[level].score) {
+            scores[level] = {
+                score,
+                starsCount,
+            };
+            updateLocalStorage();
+        } else {
+            highScore = scores[level].score;
+        }
+    } else {
         scores[level] = {
             score,
             starsCount,
         };
-    document.querySelector("[data-field=score]").innerHTML = calculateScore();
-    // TODO: Populate high scores
+        updateLocalStorage();
+    }
+    document.querySelector("[data-field=score]").innerHTML = score;
+    document.querySelector(
+        "[data-rank-type=level] > .ranking-grid > [data-field=score-self]"
+    ).innerHTML = highScore;
+    let overallScore = 0;
+    scores.forEach((score) => (overallScore += score.score));
+    document.querySelector(
+        "[data-rank-type=global] > .ranking-grid > [data-field=score-self]"
+    ).innerHTML = overallScore;
+    axios
+        .post(`${backendURL}/DiceleCompleted/dicelecompleted`, {
+            userId: userID,
+            diceleId: level,
+            score,
+            movesTaken: moves > 0 ? 21 - moves : 21,
+            timeTaken: playTime,
+        })
+        .then(() =>
+            axios.post(`${backendURL}/DiceleCompleted/diceleleaderboards`, {
+                userId: userID,
+            })
+        )
+        .then((response) => response.data)
+        .then((data) => {
+            document
+                .querySelectorAll(".ranking-entry[data-rank-type=level]")
+                .forEach((ele, index) => {
+                    ele.innerHTML = `
+                        <div class="ranking-grid">
+                            <span class="rank-number">${index + 1}</span>
+                            <span class="rank-name">RANK ${index + 1}</span>
+                            <span class="rank-score">${
+                                data.daily[index].score
+                            }</span>
+                        </div>`;
+                });
+            document
+                .querySelectorAll(".ranking-entry[data-rank-type=global]")
+                .forEach((ele, index) => {
+                    ele.innerHTML = `
+                        <div class="ranking-grid">
+                            <span class="rank-number">${index + 1}</span>
+                            <span class="rank-name">RANK ${index + 1}</span>
+                            <span class="rank-score">${
+                                data.overall[index].score
+                            }</span>
+                        </div>`;
+                });
+
+            document.querySelector(
+                ".ranking-self[data-rank-type=level] > .ranking-grid > [data-field=rank-self]"
+            ).innerHTML = data.daily[3].rank;
+            document.querySelector(
+                ".ranking-self[data-rank-type=global] > .ranking-grid > [data-field=rank-self]"
+            ).innerHTML = data.overall[3].rank;
+        })
+        .catch((err) => console.error(err));
     openModal("win-modal");
+    level++;
+    updateLocalStorage();
 }
 
 function showLoseScreen() {
@@ -648,12 +732,12 @@ document.querySelector(".global-ranking").addEventListener("click", () => {
 });
 
 document.querySelector(".retry-button").addEventListener("click", () => {
+    level--;
     initBoard();
     closeModal("win-modal");
 });
 
 document.querySelector(".next-button").addEventListener("click", () => {
-    level++;
     initBoard();
     closeModal("win-modal");
 });

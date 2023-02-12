@@ -887,7 +887,8 @@ body {
     margin: 0.25rem 0;
 }
 
-.ranking-entry[data-rank-type=global] {
+.ranking-entry[data-rank-type=global],
+.ranking-self[data-rank-type=global] {
     display: none;
 }
 
