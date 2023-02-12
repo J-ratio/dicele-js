@@ -800,7 +800,8 @@ body {
     align-items: center;
     font-weight: bold;
     background-color: #F0F0F0;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
+    margin: 0.5rem 0;
     border-radius: 0.5rem;
 }
 
@@ -810,7 +811,7 @@ body {
     align-items: center;
     justify-content: space-around;
     font-size: 1.25rem;
-    margin: 0 0.5rem;
+    margin: 00.5rem;
 }
 
 .win-stats-icon {
@@ -844,11 +845,11 @@ body {
     border-radius: 0.75rem 0.75rem 0 0;
 }
 
-.daily-ranking {
+.level-ranking {
     background-color: #FBC024;
 }
 
-.all-time-ranking {
+.global-ranking {
     background-color: #9BD8DB;
 }
 
@@ -864,7 +865,7 @@ body {
 
 .ranking-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
     width: 24rem;
     justify-items: center;
@@ -884,6 +885,10 @@ body {
     padding: 0.25rem;
     border-radius: 1rem;
     margin: 0.25rem 0;
+}
+
+.ranking-entry[data-rank-type=global] {
+    display: none;
 }
 
 .ranking-self {

@@ -418,6 +418,122 @@
                 <span class="win-text">COME BACK TOMORROW TO CONTINUE YOUR STREAK</span>
             </div>
         </div>
+        <!-- Win modal -->
+        <div class="w3-modal" id="win-modal">
+            <div class="w3-modal-content w3-animate-bottom">
+                <div class="win-banner">
+                    <div class="banner-left"></div>
+                    <span class="banner-text">CONGRATULATIONS</span>
+                    <div class="banner-right"></div>
+                </div>
+                <div class="win-stars-container" data-field="win-stars">
+                    <img src="/images/star.png" class="finish-star" />
+                    <img src="/images/star.png" class="finish-star" />
+                    <img src="/images/no_star.png" class="finish-star" />
+                    <img src="/images/no_star.png" class="finish-star" />
+                    <img src="/images/no_star.png" class="finish-star" />
+                </div>
+                <div class="score-container">
+                    <span class="score-text">
+                        SCORE
+                    </span>
+                    <div class="score-lower">
+                        <span class="score-number" data-field="score">
+                            61994
+                        </span>
+                        <img src="/images/score_icon.png" class="score-icon">
+                    </div>
+                </div>
+                <div class="win-stats">
+                    <div class="win-stats-group">
+                        <img src="/images/moves.png" class="win-stats-icon" />
+                        <span class="win-stats-text" data-field="finish-moves">14/21</span>
+                    </div>
+                    <div class="win-stats-group">
+                        <img src="/images/timer.png" class="win-stats-icon" />
+                        <span class="win-stats-text" data-field="finish-time">88m 59s</span>
+                    </div>
+                </div>
+                <div class="ranking-container">
+                    <div class="ranking-modes">
+                        <div class="ranking-heading daily-ranking" data-selected="true">DAILY RANKINGS</div>
+                        <div class="ranking-heading all-time-ranking" data-selected="false">ALL TIME RANKINGS</div>
+                    </div>
+                    <div class="ranking-titles">
+                        <div class="ranking-grid">
+                            <span class="ranking-title">RANK</span>
+                            <span class="ranking-title">PLAYER</span>
+                            <span class="ranking-title">SCORE</span>
+                        </div>
+                    </div>
+                    <div class="ranking-entry" data-rank="1">
+                        <div class="ranking-grid">
+                            <span class="rank-number">1</span>
+                            <span class="rank-name">RANK 1</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                    <div class="ranking-entry" data-rank="2">
+                        <div class="ranking-grid">
+                            <span class="rank-number">2</span>
+                            <span class="rank-name">RANK 2</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                    <div class="ranking-entry" data-rank="3">
+                        <div class="ranking-grid">
+                            <span class="rank-number">3</span>
+                            <span class="rank-name">RANK 3</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                    <div class="ranking-self">
+                        <div class="ranking-grid">
+                            <span class="rank-number">45</span>
+                            <span class="rank-name">YOU</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <div class="retry-button">
+                        <img src="/images/retry_icon.png" class="retry-icon">
+                        <span class="retry-text">RETRY</span>
+                    </div>
+                    <div class="next-button">
+                        <span class="next-text">NEXT GAME</span>
+                    </div>
+                    <div class="share-whatsapp-button">
+                        <img src="/images/whatsapp.png" class="share-whatsapp-icon">
+                        <span class="share-whatsapp-text">SHARE ON WHATSAPP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Lose modal -->
+        <div class="w3-modal" id="lose-modal">
+            <div class="w3-modal-content w3-animate-bottom">
+                <div class="lose-banner">
+                    <div class="banner-left"></div>
+                    <span class="banner-text">OUT OF MOVES</span>
+                    <div class="banner-right"></div>
+                </div>
+                <div class="moves-container">
+                    <span class="lose-moves-left" data-field="lose-moves-left">0</span>
+                    <span class="lose-moves-text">MOVES</span>
+                </div>
+                <span class="lose-moves-meta-text">Add 5 moves to keep playing</span>
+                <div class="add-moves-button">
+                    <img src="/images/add_moves.png" class="add-moves-icon">
+                    <span class="add-moves-text">ADD 5 MOVES</span>
+                    <span class="add-meta-text">AD</span>
+                </div>
+                <div class="try-again-button">
+                    <img src="/images/retry_icon.png" class="retry-icon">
+                    <span class="retry-text">TRY AGAIN</span>
+                </div>
+            </div>
+        </div>
         <!-- Main content -->
         <div class="play-area">
             <div class="square-outer">

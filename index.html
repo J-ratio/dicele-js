@@ -40,6 +40,9 @@
     <!-- Addsense tag -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4135738881392273"
     crossorigin="anonymous"></script>
+    
+    <!-- Axios tag -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -96,9 +99,6 @@
         <nav class="w3-light-grey navbar">
             <button class="nav-left nav-button" onclick="openSideBar()">
                 <img src="/images/menu-button.svg" />
-            </button>
-            <button class="nav-left nav-button" onclick="BackToGame()">
-                <img src="/images/back_icon.svg" />
             </button>
             <div class="nav-logo">
                 <img src="/images/logo.gif" />
@@ -388,103 +388,6 @@
                 </div>
             </div>
         </div>
-        <!-- Finish modal -->
-        <div class="w3-modal" id="finish-modal">
-            <div class="w3-modal-content w3-animate-bottom">
-                <div class="win-container">
-                    <div class="finish-banner-win">
-                        <div class="banner-left"></div>
-                        <span class="banner-text">AMAZING</span>
-                        <div class="banner-right"></div>
-                    </div>
-                    <div class="finish-stars-container" data-field="win-stars">
-                        <img src="/images/star.png" class="finish-star" />
-                        <img src="/images/star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                    </div>
-                    <span class="finish-text" data-field="win-comment"></span>
-                </div>
-                <div class="lose-container">
-                    <div class="finish-banner-lose">
-                        <div class="banner-left"></div>
-                        <span class="banner-text">GAME OVER</span>
-                        <div class="banner-right"></div>
-                    </div>
-                    <div class="finish-stars-container">
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                    </div>
-                    <span class="finish-text">You did well, better luck tomorrow</span>
-                </div>
-                <div class="finish-stats">
-                    <div class="finish-stats-group">
-                        <img src="/images/moves.png" class="finish-stats-icon" />
-                        <span class="finish-stats-text" data-field="finish-moves">14/21</span>
-                    </div>
-                    <div class="finish-stats-group">
-                        <img src="/images/timer.png" class="finish-stats-icon" />
-                        <span class="finish-stats-text" data-field="finish-time">1m 21s</span>
-                    </div>
-                </div>
-                <div class="invite-friends">CHALLENGE YOUR FRIENDS</div>
-                <div class="share-timer">
-                    <div class="timer" id="finish-timer">
-                        <span class="timer-text">NEXT DICELE</span>
-                        <span class="timer-time" data-field="timer-time">00:00:00</span>
-                    </div>
-                    <div class="share" onclick="Share()">
-                        <img src="/images/share.png" class="share-icon" />
-                        <span class="share-text">SHARE</span>
-                    </div>
-                </div>
-                <div class="finish-stats-container">
-                    <span class="finish-stats-title">STATS</span>
-                    <div class="finish-stats-separator"></div>
-                    <div class="stats-numbers">
-                        <div class="stats-group">
-                            <div class="stats-group-value" data-field="games-played">
-                                00
-                            </div>
-                            <div class="stats-group-title">Played</div>
-                        </div>
-                        <div class="stats-separator"></div>
-                        <div class="stats-group">
-                            <div class="stats-group-value" data-field="win-percent">
-                                00
-                            </div>
-                            <div class="stats-group-title">Win %</div>
-                        </div>
-                        <div class="stats-separator"></div>
-                        <div class="stats-group">
-                            <div class="stats-group-value" data-field="stars-count">
-                                00
-                            </div>
-                            <div class="stats-group-title">Stars Collected</div>
-                        </div>
-                        <div class="stats-separator"></div>
-                        <div class="stats-group">
-                            <div class="stats-group-value" data-field="current-streak">
-                                00
-                            </div>
-                            <div class="stats-group-title">Current Streak</div>
-                        </div>
-                        <div class="stats-separator"></div>
-                        <div class="stats-group">
-                            <div class="stats-group-value" data-field="highest-streak">
-                                00
-                            </div>
-                            <div class="stats-group-title">Highest Streak</div>
-                        </div>
-                    </div>
-                </div>
-                <span class="win-text">COME BACK TOMORROW TO CONTINUE YOUR STREAK</span>
-            </div>
-        </div>
         <!-- Win modal -->
         <div class="w3-modal" id="win-modal">
             <div class="w3-modal-content w3-animate-bottom">
@@ -494,8 +397,8 @@
                     <div class="banner-right"></div>
                 </div>
                 <div class="win-stars-container" data-field="win-stars">
-                    <img src="/images/star.png" class="finish-star" />
-                    <img src="/images/star.png" class="finish-star" />
+                    <img src="/images/no_star.png" class="finish-star" />
+                    <img src="/images/no_star.png" class="finish-star" />
                     <img src="/images/no_star.png" class="finish-star" />
                     <img src="/images/no_star.png" class="finish-star" />
                     <img src="/images/no_star.png" class="finish-star" />
@@ -523,46 +426,62 @@
                 </div>
                 <div class="ranking-container">
                     <div class="ranking-modes">
-                        <div class="ranking-heading daily-ranking" data-selected="true">DAILY RANKINGS</div>
-                        <div class="ranking-heading all-time-ranking" data-selected="false">ALL TIME RANKINGS</div>
+                        <div class="ranking-heading level-ranking" data-selected="true">LEVEL RANKINGS</div>
+                        <div class="ranking-heading global-ranking" data-selected="false">GLOBAL RANKINGS</div>
                     </div>
                     <div class="ranking-titles">
                         <div class="ranking-grid">
                             <span class="ranking-title">RANK</span>
                             <span class="ranking-title">PLAYER</span>
-                            <span class="ranking-title">PLAYED</span>
                             <span class="ranking-title">SCORE</span>
                         </div>
                     </div>
-                    <div class="ranking-entry" data-rank="1">
+                    <div class="ranking-entry" data-rank="1" data-rank-type="level">
                         <div class="ranking-grid">
                             <span class="rank-number">1</span>
-                            <span class="rank-name">SAGKIL</span>
-                            <span class="rank-progress">3/5</span>
+                            <span class="rank-name">RANK 1</span>
                             <span class="rank-score">5474</span>
                         </div>
                     </div>
-                    <div class="ranking-entry" data-rank="2">
+                    <div class="ranking-entry" data-rank="2" data-rank-type="level">
                         <div class="ranking-grid">
                             <span class="rank-number">2</span>
-                            <span class="rank-name">SAGKIL</span>
-                            <span class="rank-progress"></span>
+                            <span class="rank-name">RANK 2</span>
                             <span class="rank-score">5474</span>
                         </div>
                     </div>
-                    <div class="ranking-entry" data-rank="3">
+                    <div class="ranking-entry" data-rank="3" data-rank-type="level">
                         <div class="ranking-grid">
                             <span class="rank-number">3</span>
-                            <span class="rank-name">SAGKIL</span>
-                            <span class="rank-progress"></span>
+                            <span class="rank-name">RANK 3</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                    <div class="ranking-entry" data-rank="1" data-rank-type="global">
+                        <div class="ranking-grid">
+                            <span class="rank-number">1</span>
+                            <span class="rank-name">RANK 1</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                    <div class="ranking-entry" data-rank="2" data-rank-type="global">
+                        <div class="ranking-grid">
+                            <span class="rank-number">2</span>
+                            <span class="rank-name">RANK 2</span>
+                            <span class="rank-score">5474</span>
+                        </div>
+                    </div>
+                    <div class="ranking-entry" data-rank="3" data-rank-type="global">
+                        <div class="ranking-grid">
+                            <span class="rank-number">3</span>
+                            <span class="rank-name">RANK 3</span>
                             <span class="rank-score">5474</span>
                         </div>
                     </div>
                     <div class="ranking-self">
                         <div class="ranking-grid">
                             <span class="rank-number">45</span>
-                            <span class="rank-name">GANESH</span>
-                            <span class="rank-progress"></span>
+                            <span class="rank-name">YOU</span>
                             <span class="rank-score">5474</span>
                         </div>
                     </div>
@@ -573,7 +492,7 @@
                         <span class="retry-text">RETRY</span>
                     </div>
                     <div class="next-button">
-                        <span class="next-text">NEXT 3/5</span>
+                        <span class="next-text">NEXT GAME</span>
                     </div>
                     <div class="share-whatsapp-button">
                         <img src="/images/whatsapp.png" class="share-whatsapp-icon">
@@ -610,8 +529,8 @@
         <div class="play-area">
             <div class="square-outer">
                 <span class="game-title">
-                    <span class="game-mode">Daily Dicele </span>
-                    <span class="game-number">#00</span>
+                    <span class="game-mode">Dicele Level</span>
+                    <span class="game-number">00</span>
                 </span>
                 <div class="square" id="game">
                     <div id="board">
