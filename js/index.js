@@ -437,7 +437,6 @@ function initBoard() {
     fillArchive();
 }
 
-
 if (newUser) {
     initBoard();
 } else {
@@ -445,6 +444,16 @@ if (newUser) {
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
     updateSums();
     fillArchive();
+    checkMatched();
+
+    if (matches === 21) {
+        updateLocalStorage();
+        showWinScreen();
+    }
+
+    if (moves === 0 || moves === -5 * adCount) {
+        showLoseScreen();
+    }
 }
 
 function updateSums() {
