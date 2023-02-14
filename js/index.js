@@ -386,7 +386,7 @@ function updateLocalStorage() {
 let { userID, level, moves, adCount, state, startTime, playTime, levels } =
     data;
 let matches;
-const solution = Array.from(SolutionArr[level]);
+let solution = Array.from(SolutionArr[level]);
 writeBoard();
 updateLocalStorage();
 
@@ -427,6 +427,7 @@ function initBoard() {
     moves = 21;
     adCount = 0;
     state = Array.from(SpawnArr[level]);
+    solution = Array.from(SolutionArr[level]);
     playTime = 0;
     startTime = Date.now();
     updateLocalStorage();
@@ -796,8 +797,8 @@ document
 
 document.querySelector(".add-moves-button").addEventListener("click", () => {
     adCount++;
-    document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     updateLocalStorage();
+    document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     closeModal("lose-modal");
 });
 
