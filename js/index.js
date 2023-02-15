@@ -778,14 +778,18 @@ document.querySelector(".global-ranking").addEventListener("click", () => {
 });
 
 document.querySelector(".retry-button").addEventListener("click", () => {
-    level--;
-    initBoard();
-    closeModal("win-modal");
+    _triggerReason = 'Retry';
+    rewardEvent();
+    // level--;
+    // initBoard();
+    // closeModal("win-modal");
 });
 
 document.querySelector(".next-button").addEventListener("click", () => {
-    initBoard();
-    closeModal("win-modal");
+    _triggerReason = 'NextGame';
+    rewardEvent();
+    // initBoard();
+    // closeModal("win-modal");
 });
 
 // TODO: Add Whatsapp share stuff
@@ -796,15 +800,17 @@ document
 // Lose modal event listeners
 
 document.querySelector(".add-moves-button").addEventListener("click", () => {
-    adCount++;
-    updateLocalStorage();
-    document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
-    closeModal("lose-modal");
+    _triggerReason = 'Reward';
+    rewardEvent();
+    // adCount++;
+    // updateLocalStorage();
+    // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+    // closeModal("lose-modal");
 });
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
-    initBoard();
-    closeModal("lose-modal");
+    _triggerReason = 'replay';
+    rewardEvent();
 });
 
 /*

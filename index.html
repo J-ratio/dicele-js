@@ -121,43 +121,17 @@
 
         <!-- Axios tag -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <style>
-            /* loadingPage ad */
-            #div-gpt-ad-2 {
-                display: flex;
-                justify-content: center;
-                transform: scale(0.8);
-                border: 6px solid rgb(255, 255, 255, 1);
-                border-radius: 12px;
-                bottom: 5px;
-                margin-top: 10%;
-                z-index: 15;
-                /* position: absolute; */
 
-                /* stickyBanner Ad */
-            }
-            #banner-ad {
-                position: fixed;
-                left: 50%;
-                bottom: 20px;
-                transform: translate(-50%, -50%);
-                margin: 0 auto;
-            }
+        <!--Base Glance Properties-->
+        <script src="/js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="/js/gpid.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+        
+        <script type="text/javascript" src="js/loadingPage.js"></script>
+        <link rel="stylesheet" href="/css/loadingPage.css">
+        <script type="text/javascript" src="js/stickyBanner.js"></script>
+        <link rel="stylesheet" href="/css/stickyBanner.css">
 
-            /* banner ad  */
-            #div-gpt-ad-1 {
-                display: flex;
-                justify-content: center;
-                position: relative;
-                /* width: 100%; */
-                transform: scale(0.8);
-                border: 6px solid rgb(255, 255, 255, 1);
-                border-radius: 12px;
-                z-index: 15;
-            }
-        </style>
-        <!--Base Properties-->
-        <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
         <script
             type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"
@@ -165,8 +139,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
 
-        <script type="text/javascript" src="/js/gpid.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+        <!-- Glance file -->
         <script type="text/javascript" src="/js/ads.js"></script>
     </head>
 
@@ -776,6 +749,7 @@
             </div>
             <!-- Main content -->
             <div class="play-area">
+                <progress id="loader" value="15" max="100" style="display:none"></progress>
                 <div class="square-outer">
                     <span class="game-title">
                         <span class="game-mode">Dicele Level</span>
@@ -838,10 +812,7 @@
                     </span>
                     <div class="game-ad-box"></div>
                 </div>
-                <div id="bannerOverlay"></div>
-                <div id="div-gpt-ad-2"></div>
-                <div id="div-gpt-ad-1"></div>
-                <div class="game-ad-box">
+                <!-- <div class="game-ad-box">
                     <button onclick="showBumperAd()">
                         Click for Bumper Ad
                     </button>
@@ -857,7 +828,14 @@
                     <button onclick="rewardedAd()">
                         Click for Rewarded Ad
                     </button>
-                </div>
+                    <button onclick="rewardEvent()">
+                        Click display Rewarded Ad
+                    </button>
+                    <button onclick="replayEvent()">
+                        Click display Replay Ad
+                    </button>
+                    
+                </div> -->
             </div>
         </div>
 
@@ -876,23 +854,12 @@
 
         <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
         <script>
-            window.onload = function () {
-                stickyBannerAd();
-            };
-            function addLoader() {
-                var bumperDiv = `<div id="div-gpt-ad-2">
-                           </div>`;
-                $("body").append($(bumperDiv));
-                console.log("BumperDiv added");
-            }
-
-            function showBumperAd() {
-                addLoader();
-                LPBannerInstance = window.GlanceGamingAdInterface.showBannerAd(
-                    LPMercObj,
-                    bannerCallbacks
-                );
-                console.log("showBumperAd");
+            function rewardEvent() {
+                if (!is_rewarded_noFill) {
+                    window.GlanceGamingAdInterface.showRewarededAd(rewardInstance);
+                } else {
+                    runOnAdClosed();
+                }
             }
 
             function addBannerAd() {
@@ -932,12 +899,55 @@
             }
 
             function rewardedAd() {
-                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-                    replayObj,
+                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+                    rewardObj,
                     rewardedCallbacks
                 );
+                console.log("replay Ads"); 
+                // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+                //     replayObj,
+                //     rewardedCallbacks
+                // );
+                // console.log("replay retry Ads"); 
+            }
 
-                console.log("replay Ads");
+            // function replayAd() {
+            //     rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+            //         replayObj,
+            //         rewardedCallbacks
+            //     );
+            //     console.log("replay retry game Ads"); 
+            // }
+        </script>
+
+        <script>
+            addLoader();
+            var progress, date, interval;
+            // wait until DOM has been loaded to perform DOM Manipulations
+            document.addEventListener('DOMContentLoaded', function() {
+                date = Date.now(); //current timestamp since UNIX epoch
+
+                //get a reference to the progress element using its id attribute
+                progress = document.getElementById('loader');
+                interval = setInterval(updateProgress, 1000);
+            });
+
+            function updateProgress() {
+                // msg.innerHTML = 'begin updateProgress() - progress.value = '+progress.value + "<br>" + msg.innerHTML;
+                progressBar(null, progress.value);
+                if (progress.value >= 100) {
+                    //stop running this function after value reaches 100 (percent)
+                    clearInterval(interval);
+                    refreshStickyBannerAd();
+                    showStickyBannerAd();
+                    rewardedAd();
+                    // replayAd();
+                }
+                var newDate = Date.now();
+                var milliseconds = newDate - date;
+
+                var seconds = Math.floor(milliseconds / 1000);
+                loader.value += seconds;
             }
         </script>
     </body>

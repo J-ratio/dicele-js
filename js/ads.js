@@ -1,99 +1,3 @@
-const gameInput = { gameName: 'MLib', publisherName: 'MLib Testing', surface: 'test'};
-
-$.getScript(
-
-   
-    "https://g.glance-cdn.com/public/content/games/xiaomi/gamesAd.js",
-    "gpid.js",
-    "loadingPage.js"
-
-)
-    .done(function (script, textStatus) {
-        console.log(textStatus);
-        window.GlanceGamingAdInterface.setupLibrary(gameInput, successCb, failCb);
-    })
-    .fail(function (jqxhr, settings, exception) {
-        console.log("MLIB load failed, reason : ", exception);
-    });
-
-
-var LPBannerInstance, LBBannerInstance, StickyBannerInstance, replayInstance, GlanceGamingAdInstance, rewardInstance ,_triggerReason;
-var is_replay_noFill = false
-var is_rewarded_noFill = false
-var isRewardGranted = false
-var isRewardedAdClosedByUser = false
-
-const LPMercObj = {
-    adUnitName: "Sagaci_Dicele",
-    pageName: 'Dicele',               //Game Name
-    categoryName: 'google',           //Publisher Name
-    placementName: 'Test_Banner',
-    containerID: "div-gpt-ad-2",            //Div Id for banner
-    height: 250,
-    width: 300,
-    xc: '12.0',
-    yc: '3.0',
-    impid: gpID,
-}
-const StickyObj = {
-    adUnitName: "Sagaci_Dicele",
-    pageName:'Dicele',                        //Game Name
-    categoryName: 'google',                   //Publisher Name       
-    placementName: 'Test_Banner',
-    containerID: "banner-ad",            //Div Id for banner
-    height: 50,
-    width: 320,
-    xc: '12.0',
-    yc: '3.0',
-    impid: gpID,
-}
-
-const LBBannerObj = {
-    adUnitName: "Sagaci_Dicele",
-    pageName: 'Dicele',               //Game Name
-    categoryName: 'google',           //Publisher Name
-    placementName: 'Test_Banner',
-    containerID: "div-gpt-ad-1",            //Div Id for banner
-    height: 250,
-    width: 300,
-    xc: '12.0',
-    yc: '3.0',
-    impid: gpID,
-}
-
-function successCb() {
-    console.log("set up lib success")
-    showBumperAd();
-}
-function failCb(reason) { }
-
-
-
-const replayObj = {
-    adUnitName: "Sagaci_Dicele",
-    placementName: "Test_Rewarded",
-    pageName: 'Dicele',
-    categoryName: 'google',
-    containerID: '',
-    height: '',
-    width: '',
-    xc: '',
-    yc: '',
-    impid: gpID,
-}
-const rewardObj = {
-    adUnitName: "Sagaci_Dicele",
-    placementName: "Test_Rewarded",
-    pageName: 'Dicele',
-    categoryName: 'google',
-    containerID: '',
-    height: '',
-    width: '',
-    xc: '',
-    yc: '',
-    impid: gpID,
-}
-
 
 function bannerCallbacks(obj) {
     
@@ -187,6 +91,10 @@ function rewardedCallbacks(obj) {
     obj.adInstance?.registerCallback('onRewardsUnlocked', (data) => {
         console.log('onRewardsUnlocked Rewarded CALLBACK', data);
         
+        adCount++;
+        updateLocalStorage();
+        console.log('replay rewarded the user, updating moves', obj.adUnitName, rewardObj.adUnitName);
+        
         if (obj.adUnitName === rewardObj.adUnitName) {
             isRewardGranted = true
         }
@@ -196,30 +104,48 @@ function rewardedCallbacks(obj) {
 }
 
 function runOnAdClosed() {
-    if (_triggerReason === 'replay') {
-
-    // call function for replay
-    _triggerReason = ''
-    $('#playMore').css("display", "none");
-    
-    replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
-
-    } else if (_triggerReason === 'Reward') {
-
-      // If user close ad before reward
-      if (!isRewardGranted && isRewardedAdClosedByUser) {
-        // call function for not earning reward (failure case)
-     
-      } else {
-
-    // call function for earned reward  (success case)
-      }
-      _triggerReason = ''
-      rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
-
-    } 
-
-
+    console.log('replay runOnAdClosed ', _triggerReason);
+    if (!isRewardGranted && isRewardedAdClosedByUser) {
+    // call function for not earning reward (failure case)
+        _triggerReason = ''
+        rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+        console.log('replay retry game rewardInstance added new ');
+    } else {
+        if (_triggerReason === 'replay') {
+            console.log('replay TryAgain ',isRewardGranted, isRewardedAdClosedByUser);
+            initBoard();
+            closeModal("lose-modal");
+            // call function for replay
+            _triggerReason = ''
+            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+            console.log('replay retry game rewardInstance added new ');
+        } else if (_triggerReason === 'Reward') {
+            console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
+            document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+            closeModal("lose-modal");
+            // call function for earned reward  (success case)
+            _triggerReason = ''
+            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+            console.log('replay rewardInstance added new ');
+        } else if (_triggerReason == 'Retry') {
+            console.log('replay Retry ',isRewardGranted, isRewardedAdClosedByUser);
+            level--;
+            initBoard();
+            closeModal("win-modal");
+            // call function for Retry
+            _triggerReason = ''
+            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+            console.log('replay Retry rewardInstance added new ');
+        } else if (_triggerReason == 'NextGame') {
+            console.log('replay NextGame ',isRewardGranted, isRewardedAdClosedByUser);
+            initBoard();
+            closeModal("win-modal");
+            // call function for NextGame
+            _triggerReason = ''
+            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+            console.log('replay NextGame rewardInstance added new ');
+        }
+    }
   }
 
 
