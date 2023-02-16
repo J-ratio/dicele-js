@@ -191,6 +191,11 @@ body {
     align-self: center;
 }
 
+.sidebar-social-icon {
+    height: 2rem;
+    margin: 0.25rem;
+}
+
 .sidebar-mail {
     font-size: 0.65rem;
     font-weight: bold;
@@ -451,6 +456,7 @@ body {
 .help-text {
     margin: 0.5rem 0;
     font-size: 1.25rem;
+    text-align: center;
 }
 
 .help-grid {
@@ -888,8 +894,8 @@ body {
     margin: 0.25rem 0;
 }
 
-.ranking-entry[data-rank-type=global],
-.ranking-self[data-rank-type=global] {
+.ranking-entry[data-rank-type=all-time],
+.ranking-self[data-rank-type=all-time] {
     display: none;
 }
 
@@ -910,7 +916,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     height: 4rem;
-    width: 16rem;
+    width: 20rem;
 }
 
 .retry-button,
@@ -966,6 +972,7 @@ body {
     color: #ffffff;
     font-size: 1.5rem;
     letter-spacing: 1px;
+    margin-top: 2rem;
 }
 
 #lose-modal > .w3-modal-content {
@@ -977,7 +984,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 
 .lose-moves-left {
@@ -990,7 +997,9 @@ body {
 
 .lose-moves-meta-text {
     font-size: 1.25rem;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    padding: 0 0.5rem;
+    text-align: center;
 }
 
 .add-moves-button,
@@ -1005,7 +1014,7 @@ body {
     border-radius: 0.5rem;
     height: calc(100%-0.5rem);
     font-weight: bold;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     cursor: pointer;
 }
 

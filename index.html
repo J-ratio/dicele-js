@@ -195,6 +195,17 @@
                     <span class="sidebar-icon-label">Blogs</span>
                 </div>
                 <div class="sidebar-separator"></div>
+                <div class="sidebar-item">
+                    <a href="https://twitter.com/dicele_game" class="sidebar-social-link">
+                        <img src="/images/twitter-square.svg" alt="" class="sidebar-social-icon">
+                    </a>
+                    <a href="https://www.instagram.com/dicele_game/" class="sidebar-social-link">
+                        <img src="/images/instagram-square.svg" alt="" class="sidebar-social-icon">
+                    </a>
+                    <a href="https://www.facebook.com/dicele.game" class="sidebar-social-link">
+                        <img src="/images/facebook-square.svg" alt="" class="sidebar-social-icon">
+                    </a>
+                </div>
                 <div class="sidebar-item" onclick="contact()">
                     <img
                         src="/images/mail_icon.png"
@@ -384,19 +395,6 @@
                                     data-stars="5"
                                 ></div>
                             </div>
-                        </div>
-                    </div>
-                    <span class="visit-tomorrow">PLEASE VISIT TOMORROW</span>
-                    <div class="share-timer">
-                        <div class="timer">
-                            <span class="timer-text">NEXT DICELE</span>
-                            <span class="timer-time" data-field="timer-time"
-                                >00:00:00</span
-                            >
-                        </div>
-                        <div class="share" onclick="statShare()">
-                            <img src="/images/share.png" class="share-icon" />
-                            <span class="share-text">SHARE</span>
                         </div>
                     </div>
                 </div>
@@ -621,13 +619,13 @@
                                 class="ranking-heading level-ranking"
                                 data-selected="true"
                             >
-                                LEVEL RANKINGS
+                                DAILY RANKINGS
                             </div>
                             <div
                                 class="ranking-heading global-ranking"
                                 data-selected="false"
                             >
-                                GLOBAL RANKINGS
+                                ALL TIME RANKINGS
                             </div>
                         </div>
                         <div class="ranking-titles">
@@ -640,34 +638,34 @@
                         <div
                             class="ranking-entry"
                             data-rank="1"
-                            data-rank-type="level"
+                            data-rank-type="daily"
                         ></div>
                         <div
                             class="ranking-entry"
                             data-rank="2"
-                            data-rank-type="level"
+                            data-rank-type="daily"
                         ></div>
                         <div
                             class="ranking-entry"
                             data-rank="3"
-                            data-rank-type="level"
+                            data-rank-type="daily"
                         ></div>
                         <div
                             class="ranking-entry"
                             data-rank="1"
-                            data-rank-type="global"
+                            data-rank-type="all-time"
                         ></div>
                         <div
                             class="ranking-entry"
                             data-rank="2"
-                            data-rank-type="global"
+                            data-rank-type="all-time"
                         ></div>
                         <div
                             class="ranking-entry"
                             data-rank="3"
-                            data-rank-type="global"
+                            data-rank-type="all-time"
                         ></div>
-                        <div class="ranking-self" data-rank-type="level">
+                        <div class="ranking-self" data-rank-type="daily">
                             <div class="ranking-grid">
                                 <span class="rank-number" data-field="rank-self"
                                     >45</span
@@ -678,7 +676,7 @@
                                 >
                             </div>
                         </div>
-                        <div class="ranking-self" data-rank-type="global">
+                        <div class="ranking-self" data-rank-type="all-time">
                             <div class="ranking-grid">
                                 <span class="rank-number" data-field="rank-self"
                                     >45</span
@@ -701,7 +699,7 @@
                         <div class="next-button">
                             <span class="next-text">NEXT GAME</span>
                         </div>
-                        <div class="share-whatsapp-button">
+                        <div class="share-whatsapp-button" onclick="share()">
                             <img
                                 src="/images/whatsapp.png"
                                 class="share-whatsapp-icon"
