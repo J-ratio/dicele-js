@@ -1,568 +1,954 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://www.w3schools.com/w3css/4/w3.css"
+        />
+        <link rel="stylesheet" href="css/index.css" />
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-    <link rel="stylesheet" href="css/index.css" />
+        <title>Dicele | Daily Number Puzzle</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://dicele.com/favicon.ico"
+        />
+        <meta
+            name="description"
+            content="Can you solve it? Try now at dicele.com"
+        />
+        <meta property="og:title" content="Dicele | Daily Number Puzzle" />
+        <meta
+            property="og:description"
+            content="Can you solve it? Try now at dicele.com"
+        />
+        <meta property="og:url" content="https://dicele.com/" />
+        <meta property="og:image" content="https://dicele.com/favicon.ico" />
+        <meta name="twitter:title" content="Dicele | Daily Number Puzzle" />
+        <meta
+            name="twitter:description"
+            content="Can you solve it? Try now at dicele.com"
+        />
+        <meta name="twitter:image" content="https://dicele.com/favicon.ico" />
 
+        <!-- Google tag (gtag.js) -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-BSRWX1LJJV"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
 
-    <title>Dicele | Daily Number Puzzle</title>
-    <link rel="icon" type="image/png" href="https://dicele.com/favicon.ico">
-    <meta name="description" content="Can you solve it? Try now at dicele.com">
-    <meta property="og:title" content="Dicele | Daily Number Puzzle" />
-    <meta property="og:description" content="Can you solve it? Try now at dicele.com">
-    <meta property="og:url" content="https://dicele.com/" />
-    <meta property="og:image" content="https://dicele.com/favicon.ico" />
-    <meta name="twitter:title" content="Dicele | Daily Number Puzzle">
-    <meta name="twitter:description" content="Can you solve it? Try now at dicele.com">
-    <meta name="twitter:image" content="https://dicele.com/favicon.ico">
+            gtag("config", "G-BSRWX1LJJV");
+        </script>
 
+        <!-- PostHog tag -->
+        <script>
+            !(function (t, e) {
+                var o, n, p, r;
+                e.__SV ||
+                    ((window.posthog = e),
+                    (e._i = []),
+                    (e.init = function (i, s, a) {
+                        function g(t, e) {
+                            var o = e.split(".");
+                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                                (t[e] = function () {
+                                    t.push(
+                                        [e].concat(
+                                            Array.prototype.slice.call(
+                                                arguments,
+                                                0
+                                            )
+                                        )
+                                    );
+                                });
+                        }
+                        ((p = t.createElement("script")).type =
+                            "text/javascript"),
+                            (p.async = !0),
+                            (p.src = s.api_host + "/static/array.js"),
+                            (r =
+                                t.getElementsByTagName(
+                                    "script"
+                                )[0]).parentNode.insertBefore(p, r);
+                        var u = e;
+                        for (
+                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                                u.people = u.people || [],
+                                u.toString = function (t) {
+                                    var e = "posthog";
+                                    return (
+                                        "posthog" !== a && (e += "." + a),
+                                        t || (e += " (stub)"),
+                                        e
+                                    );
+                                },
+                                u.people.toString = function () {
+                                    return u.toString(1) + ".people (stub)";
+                                },
+                                o =
+                                    "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags".split(
+                                        " "
+                                    ),
+                                n = 0;
+                            n < o.length;
+                            n++
+                        )
+                            g(u, o[n]);
+                        e._i.push([i, s, a]);
+                    }),
+                    (e.__SV = 1));
+            })(document, window.posthog || []);
+            posthog.init("phc_bfdT0qiwHTH1mzbzPy1lw8GO7gYCRyI03ne20ahdNr7", {
+                api_host: "https://app.posthog.com",
+            });
+        </script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BSRWX1LJJV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        <!-- Addsense tag -->
+        <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4135738881392273"
+            crossorigin="anonymous"
+        ></script>
 
-      gtag('config', 'G-BSRWX1LJJV');
-    </script>
+        <!-- Axios tag -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- PostHog tag -->
-    <script>
-      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-      posthog.init('phc_bfdT0qiwHTH1mzbzPy1lw8GO7gYCRyI03ne20ahdNr7',{api_host:'https://app.posthog.com'})
-    </script>
+        <!--Base Glance Properties-->
+        <script src="/js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="/js/gpid.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+        
+        <script type="text/javascript" src="js/loadingPage.js"></script>
+        <link rel="stylesheet" href="/css/loadingPage.css">
+        <script type="text/javascript" src="js/stickyBanner.js"></script>
+        <link rel="stylesheet" href="/css/stickyBanner.css">
 
-    <!-- Addsense tag -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4135738881392273"
-    crossorigin="anonymous"></script>
-</head>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
 
-<body>
-    <img src="images/tutorial hand.svg" class="tut-hand">
-    <div class="box-modal">
-        <h6 class = "tutMsg">SWAP DICE TO FIND ITS</h6>
-        <h6 class = "tutMsg">CORRECT PLACE</h6>
-    </div>
-    <div class="desktop-vert-container"></div>
+        <!-- Glance file -->
+        <script type="text/javascript" src="/js/ads.js"></script>
+    </head>
 
-    <div class="center">
-        <!-- Sidebar -->
-        <div class="w3-sidebar w3-bar-block w3-animate-left" id="sidebar">
-            <div class="sidebar-heading">
-                <div class="banner">
-                    <img src="images/menu-icon.svg" class="menu-icon" />
-                    <span class="menu-banner-text">MENU</span>
-                    <div class="menu-banner-triangle"></div>
-                </div>
-                <div class="sidebar-close" onclick="closeSideBar()">
-                    <span>X</span>
-                </div>
-            </div>
-            <div class="sidebar-item" onclick="openModal('archive-modal')">
-                <img src="/images/archive_icon.png" class="sidebar-item-icon" />
-                <span class="sidebar-icon-label">Archive</span>
-            </div>
-            <div class="sidebar-item" onclick="openModal('stats-modal')">
-                <img src="/images/stats-icon.svg" class="sidebar-item-icon" />
-                <span class="sidebar-icon-label">Statistics</span>
-            </div>
-            <div class="sidebar-item" onclick="openModal('help-modal')">
-                <img src="/images/help-icon.svg" class="sidebar-item-icon" />
-                <span class="sidebar-icon-label">Help</span>
-            </div>
-            <div class="sidebar-item" onclick="window.open(`/Blogs/index.html`,``)">
-                <img src="/images/blog_icon.png" class="sidebar-item-icon" />
-                <span class="sidebar-icon-label">Blogs</span>
-            </div>
-            <div class="sidebar-separator"></div>
-            <div class="sidebar-item" onclick="contact()">
-                <img src="/images/mail_icon.png" class="sidebar-item-icon" />
-                <span class="sidebar-mail">CONTACT@SAGACISTUDIOS.COM</span>
-            </div>
-            <div class="sidebar-item">
-                <img src="/images/copyright_icon.png" class="sidebar-item-icon" />
-                <span class="sidebar-copyright">SAGACISYSTEMS</span>
-            </div>
+    <body>
+        <img src="images/tutorial hand.svg" class="tut-hand" />
+        <div class="box-modal">
+            <h6 class="tutMsg">SWAP DICE TO FIND ITS CORRECT PLACE</h6>
         </div>
-        <!-- Sidebar overlay -->
-        <div class="w3-overlay" id="overlay" onclick="closeSideBar()"></div>
-        <div class="w3-overlay" id="tut-overlay" onclick="closeSideBar()"></div>
-        <!-- Navbar -->
-        <nav class="w3-light-grey navbar">
-            <button class="nav-left nav-button" onclick="openSideBar()">
-                <img src="/images/menu-button.svg" />
-            </button>
-            <button class="nav-left nav-button" onclick="BackToGame()">
-                <img src="/images/back_icon.svg" />
-            </button>
-            <div class="nav-logo">
-                <img src="/images/logo.gif" />
+        <div class="desktop-vert-container"></div>
+
+        <div class="center">
+            <!-- Sidebar -->
+            <div class="w3-sidebar w3-bar-block w3-animate-left" id="sidebar">
+                <div class="sidebar-heading">
+                    <div class="banner">
+                        <img src="images/menu-icon.svg" class="menu-icon" />
+                        <span class="menu-banner-text">MENU</span>
+                        <div class="menu-banner-triangle"></div>
+                    </div>
+                    <div class="sidebar-close" onclick="closeSideBar()">
+                        <span>X</span>
+                    </div>
+                </div>
+                <div class="sidebar-item" onclick="openModal('archive-modal')">
+                    <img
+                        src="/images/archive_icon.png"
+                        class="sidebar-item-icon"
+                    />
+                    <span class="sidebar-icon-label">Archive</span>
+                </div>
+                <div class="sidebar-item" onclick="openModal('stats-modal')">
+                    <img
+                        src="/images/stats-icon.svg"
+                        class="sidebar-item-icon"
+                    />
+                    <span class="sidebar-icon-label">Statistics</span>
+                </div>
+                <div class="sidebar-item" onclick="openModal('help-modal')">
+                    <img
+                        src="/images/help-icon.svg"
+                        class="sidebar-item-icon"
+                    />
+                    <span class="sidebar-icon-label">Help</span>
+                </div>
+                <div
+                    class="sidebar-item"
+                    onclick="window.open(`/Blogs/index.html`,``)"
+                >
+                    <img
+                        src="/images/blog_icon.png"
+                        class="sidebar-item-icon"
+                    />
+                    <span class="sidebar-icon-label">Blogs</span>
+                </div>
+                <div class="sidebar-separator"></div>
+                <div class="sidebar-item" onclick="contact()">
+                    <img
+                        src="/images/mail_icon.png"
+                        class="sidebar-item-icon"
+                    />
+                    <span class="sidebar-mail">CONTACT@SAGACISTUDIOS.COM</span>
+                </div>
+                <div class="sidebar-item">
+                    <img
+                        src="/images/copyright_icon.png"
+                        class="sidebar-item-icon"
+                    />
+                    <span class="sidebar-copyright">SAGACISYSTEMS</span>
+                </div>
             </div>
-            <span class="nav-right">
-                <button class="nav-button" onclick="openModal('stats-modal')">
-                    <img src="/images/stats-button.svg" />
+            <!-- Sidebar overlay -->
+            <div class="w3-overlay" id="overlay" onclick="closeSideBar()"></div>
+            <div
+                class="w3-overlay"
+                id="tut-overlay"
+                onclick="closeSideBar()"
+            ></div>
+            <!-- Navbar -->
+            <nav class="w3-light-grey navbar">
+                <button class="nav-left nav-button" onclick="openSideBar()">
+                    <img src="/images/menu-button.svg" />
                 </button>
-                <button class="nav-button" onclick="openModal('help-modal')">
-                    <img src="/images/help-button.svg" />
-                </button>
-            </span>
-        </nav>
-        <!-- Stats modal -->
-        <div class="w3-modal" id="stats-modal">
-            <div class="w3-modal-content w3-animate-bottom">
-                <div class="stats-banner">
-                    <div class="banner-left"></div>
-                    <span class="banner-text">STATISTICS</span>
-                    <div class="banner-right"></div>
+                <div class="nav-logo">
+                    <img src="/images/logo.gif" />
                 </div>
-                <div class="modal-close-icon" onclick="closeModal('stats-modal')">&times;</div>
-                <div class="stats-numbers">
-                    <div class="stats-group">
-                        <div class="stats-group-value" data-field="games-played">
-                            00
-                        </div>
-                        <div class="stats-group-title">Played</div>
-                    </div>
-                    <div class="stats-separator"></div>
-                    <div class="stats-group">
-                        <div class="stats-group-value" data-field="win-percent">
-                            00
-                        </div>
-                        <div class="stats-group-title">Win %</div>
-                    </div>
-                    <div class="stats-separator"></div>
-                    <div class="stats-group">
-                        <div class="stats-group-value" data-field="stars-count">
-                            00
-                        </div>
-                        <div class="stats-group-title">Stars Collected</div>
-                    </div>
-                    <div class="stats-separator"></div>
-                    <div class="stats-group">
-                        <div class="stats-group-value" data-field="current-streak">
-                            00
-                        </div>
-                        <div class="stats-group-title">Current Streak</div>
-                    </div>
-                    <div class="stats-separator"></div>
-                    <div class="stats-group">
-                        <div class="stats-group-value" data-field="highest-streak">
-                            00
-                        </div>
-                        <div class="stats-group-title">Highest Streak</div>
-                    </div>
-                </div>
-                <div class="stars-progress">
-                    <span class="stars-title">STAR DISTRIBUTION</span>
-                    <div class="star-progress-container">
-                        <span class="stars-number">0</span>
-                        <img src="/images/star.png" class="star-icon" />
-                        <span class="stars-progress-count" data-stars="0">0</span>
-                        <div class="stars-progress-track">
-                            <div class="stars-progress-bar" data-stars="0"></div>
-                        </div>
-                    </div>
-                    <div class="star-progress-container">
-                        <span class="stars-number">1</span>
-                        <img src="/images/star.png" class="star-icon" />
-                        <span class="stars-progress-count" data-stars="1">0</span>
-                        <div class="stars-progress-track">
-                            <div class="stars-progress-bar" data-stars="1"></div>
-                        </div>
-                    </div>
-                    <div class="star-progress-container">
-                        <span class="stars-number">2</span>
-                        <img src="/images/star.png" class="star-icon" />
-                        <span class="stars-progress-count" data-stars="2">0</span>
-                        <div class="stars-progress-track">
-                            <div class="stars-progress-bar" data-stars="2"></div>
-                        </div>
-                    </div>
-                    <div class="star-progress-container">
-                        <span class="stars-number">3</span>
-                        <img src="/images/star.png" class="star-icon" />
-                        <span class="stars-progress-count" data-stars="3">0</span>
-                        <div class="stars-progress-track">
-                            <div class="stars-progress-bar" data-stars="3"></div>
-                        </div>
-                    </div>
-                    <div class="star-progress-container">
-                        <span class="stars-number">4</span>
-                        <img src="/images/star.png" class="star-icon" />
-                        <span class="stars-progress-count" data-stars="4">0</span>
-                        <div class="stars-progress-track">
-                            <div class="stars-progress-bar" data-stars="4"></div>
-                        </div>
-                    </div>
-                    <div class="star-progress-container">
-                        <span class="stars-number">5</span>
-                        <img src="/images/star.png" class="star-icon" />
-                        <span class="stars-progress-count" data-stars="5">0</span>
-                        <div class="stars-progress-track">
-                            <div class="stars-progress-bar" data-stars="5"></div>
-                        </div>
-                    </div>
-                </div>
-                <span class="visit-tomorrow">PLEASE VISIT TOMORROW</span>
-                <div class="share-timer">
-                    <div class="timer">
-                        <span class="timer-text">NEXT DICELE</span>
-                        <span class="timer-time" data-field="timer-time">00:00:00</span>
-                    </div>
-                    <div class="share" onclick="statShare()">
-                        <img src="/images/share.png" class="share-icon" />
-                        <span class="share-text">SHARE</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Help modal -->
-        <div class="w3-modal" id="help-modal">
-            <div class="w3-modal-content w3-animate-bottom w3-card-4">
-                <div class="help-banner">
-                    <div class="banner-left"></div>
-                    <span class="banner-text">HOW TO PLAY</span>
-                    <div class="banner-right"></div>
-                </div>
-                <div class="modal-close-icon" onclick="closeModal('help-modal')">&times;</div>
-                <span class="help-text">Solve the DICELE in 21 moves or less</span>
-                <div class="help-grid">
-                    <div class="help-grid-text">
-                        Rearrange the dice such that they add up to the sum of
-                        rows and columns indicated on the board.
-                    </div>
-                    <div class="help-grid-sum-vertical">
-                        <span class="help-grid-sum-value">15</span>
-                        <span class="help-grid-sum-value">18</span>
-                        <span class="help-grid-sum-value">21</span>
-                        <span class="help-grid-sum-value">9</span>
-                        <span class="help-grid-sum-value">11</span>
-                    </div>
-                    <div class="help-grid-sum-horizontal">
-                        <span class="help-grid-sum-value">15</span>
-                        <span class="help-grid-sum-value">18</span>
-                        <span class="help-grid-sum-value">21</span>
-                        <span class="help-grid-sum-value">9</span>
-                        <span class="help-grid-sum-value">11</span>
-                    </div>
-                    <div class="help-grid-sum-icon-container">
-                        <img src="/images/sum.png" class="help-grid-sum-icon" />
-                    </div>
-                </div>
-                <div class="help-method-text">
-                    You can swap any two dice on the board. The dice colour will
-                    change to show how close you are.
-                </div>
-                <span class="help-method-example-text">EXAMPLE</span>
-                <div class="help-example-group">
-                    <div class="help-example-part">
-                        <img src="/images/help_1.png" class="help-example-image" />
-                        <span class="help-example-desc">Dice is neither in correct row nor in correct
-                            column</span>
-                    </div>
-                    <div class="help-example-seperator"></div>
-                    <div class="help-example-part">
-                        <img src="/images/help_2.png" class="help-example-image" />
-                        <span class="help-example-desc">Dice is either in correct row or in correct
-                            column</span>
-                    </div>
-                    <div class="help-example-seperator"></div>
-                    <div class="help-example-part">
-                        <img src="/images/help_3.png" class="help-example-image" />
-                        <span class="help-example-desc">Dice is in correct position</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Archive modal -->
-        <div class="w3-modal" id="archive-modal">
-            <div class="w3-modal-content w3-animate-bottom">
-                <div class="archive-banner">
-                    <div class="banner-left"></div>
-                    <span class="banner-text">ARCHIVE</span>
-                    <div class="banner-right"></div>
-                </div>
-                <div class="modal-close-icon" onclick="closeModal('archive-modal')">&times;</div>
-                <span class="archive-text">Welcome to the Dicele Archive. Here you will find the
-                    complete history of all our puzzles. These do not count
-                    towards your regular Statistics, but are still very much
-                    enjoyable with tea or coffee.</span>
-                <div class="archive-separator"></div>
-                <div class="archive-stats">
-                    <div class="archive-stats-left">
-                        <span class="archive-stats-title">PLAYED</span>
-                    </div>
-                    <div class="archive-stats-right">
-                        <span class="archive-stats-value" data-title="games-played">0/77 (0%)</span>
-                    </div>
-                </div>
-                <div class="archive-stats">
-                    <div class="archive-stats-left">
-                        <span class="archive-stats-title">COMPLETED</span>
-                    </div>
-                    <div class="archive-stats-right">
-                        <span class="archive-stats-value" data-title="games-completed">0/77 (0%)</span>
-                    </div>
-                </div>
-                <div class="archive-stats">
-                    <div class="archive-stats-left">
-                        <img src="/images/star.png" class="archive-stats-star" />
-                        <img src="/images/star.png" class="archive-stats-star" />
-                        <img src="/images/star.png" class="archive-stats-star" />
-                        <img src="/images/star.png" class="archive-stats-star" />
-                        <img src="/images/star.png" class="archive-stats-star" />
-                    </div>
-                    <div class="archive-stats-right">
-                        <span class="archive-stats-value" data-title="games-maxed">0/77 (0%)</span>
-                    </div>
-                </div>
-                <div class="archive-separator"></div>
-                <div class="archive-list" id="archive-list">
-                    <div class="archive-list-item">
-                        <div class="archive-list-item-left">
-                            <div class="archive-list-item-number">#77</div>
-                            <div class="archive-list-item-date">10/1/2023</div>
-                        </div>
-                        <div class="archive-list-item-right">
-                            <span class="archive-list-unattempted">UNATTEMPTED</span>
-                        </div>
-                    </div>
-                    <div class="archive-list-item">
-                        <div class="archive-list-item-left">
-                            <div class="archive-list-item-number">#76</div>
-                            <div class="archive-list-item-date">9/1/2023</div>
-                        </div>
-                        <div class="archive-list-item-right">
-                            <img src="/images/heart_broken.png" class="archive-list-item-right-icon" />
-                        </div>
-                    </div>
-                    <div class="archive-list-item">
-                        <div class="archive-list-item-left">
-                            <div class="archive-list-item-number">#75</div>
-                            <div class="archive-list-item-date">8/1/2023</div>
-                        </div>
-                        <div class="archive-list-item-right">
-                            <img src="/images/star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/no_star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/no_star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/no_star.png" class="archive-list-item-right-icon" />
-                        </div>
-                    </div>
-                    <div class="archive-list-item">
-                        <div class="archive-list-item-left">
-                            <div class="archive-list-item-number">#74</div>
-                            <div class="archive-list-item-date">7/1/2023</div>
-                        </div>
-                        <div class="archive-list-item-right">
-                            <span class="archive-list-unattempted">UNATTEMPTED</span>
-                        </div>
-                    </div>
-                    <div class="archive-list-item">
-                        <div class="archive-list-item-left">
-                            <div class="archive-list-item-number">#73</div>
-                            <div class="archive-list-item-date">6/1/2023</div>
-                        </div>
-                        <div class="archive-list-item-right">
-                            <img src="/images/heart_broken.png" class="archive-list-item-right-icon" />
-                        </div>
-                    </div>
-                    <div class="archive-list-item">
-                        <div class="archive-list-item-left">
-                            <div class="archive-list-item-number">#72</div>
-                            <div class="archive-list-item-date">5/1/2023</div>
-                        </div>
-                        <div class="archive-list-item-right">
-                            <img src="/images/star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/no_star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/no_star.png" class="archive-list-item-right-icon" />
-                            <img src="/images/no_star.png" class="archive-list-item-right-icon" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Finish modal -->
-        <div class="w3-modal" id="finish-modal">
-            <div class="w3-modal-content w3-animate-bottom">
-                <div class="win-container">
-                    <div class="finish-banner-win">
+                <span class="nav-right">
+                    <button
+                        class="nav-button"
+                        onclick="openModal('stats-modal')"
+                    >
+                        <img src="/images/stats-button.svg" />
+                    </button>
+                    <button
+                        class="nav-button"
+                        onclick="openModal('help-modal')"
+                    >
+                        <img src="/images/help-button.svg" />
+                    </button>
+                </span>
+            </nav>
+            <!-- Stats modal -->
+            <div class="w3-modal" id="stats-modal">
+                <div class="w3-modal-content w3-animate-bottom">
+                    <div class="stats-banner">
                         <div class="banner-left"></div>
-                        <span class="banner-text">AMAZING</span>
+                        <span class="banner-text">STATISTICS</span>
                         <div class="banner-right"></div>
                     </div>
-                    <div class="finish-stars-container" id="win-stars">
-                        <img src="/images/star.png" class="finish-star" />
-                        <img src="/images/star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
+                    <div
+                        class="modal-close-icon"
+                        onclick="closeModal('stats-modal')"
+                    >
+                        &times;
                     </div>
-                    <span class="finish-text" data-field="win-comment"></span>
-                </div>
-                <div class="lose-container">
-                    <div class="finish-banner-lose">
-                        <div class="banner-left"></div>
-                        <span class="banner-text">GAME OVER</span>
-                        <div class="banner-right"></div>
-                    </div>
-                    <div class="finish-stars-container">
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                        <img src="/images/no_star.png" class="finish-star" />
-                    </div>
-                    <span class="finish-text">You did well, better luck tomorrow</span>
-                </div>
-                <div class="finish-stats">
-                    <div class="finish-stats-group">
-                        <img src="/images/moves.png" class="finish-stats-icon" />
-                        <span class="finish-stats-text" data-field="finish-moves">14/21</span>
-                    </div>
-                    <div class="finish-stats-group">
-                        <img src="/images/timer.png" class="finish-stats-icon" />
-                        <span class="finish-stats-text" data-field="finish-time">1m 21s</span>
-                    </div>
-                </div>
-                <div class="invite-friends">CHALLENGE YOUR FRIENDS</div>
-                <div class="share-timer">
-                    <div class="timer" id="finish-timer">
-                        <span class="timer-text">NEXT DICELE</span>
-                        <span class="timer-time" data-field="timer-time">00:00:00</span>
-                    </div>
-                    <div class="share" onclick="Share()">
-                        <img src="/images/share.png" class="share-icon" />
-                        <span class="share-text">SHARE</span>
-                    </div>
-                </div>
-                <div class="finish-stats-container">
-                    <span class="finish-stats-title">STATS</span>
-                    <div class="finish-stats-separator"></div>
                     <div class="stats-numbers">
                         <div class="stats-group">
-                            <div class="stats-group-value" data-field="games-played">
+                            <div
+                                class="stats-group-value"
+                                data-field="games-played"
+                            >
                                 00
                             </div>
                             <div class="stats-group-title">Played</div>
                         </div>
                         <div class="stats-separator"></div>
                         <div class="stats-group">
-                            <div class="stats-group-value" data-field="win-percent">
+                            <div
+                                class="stats-group-value"
+                                data-field="win-percent"
+                            >
                                 00
                             </div>
                             <div class="stats-group-title">Win %</div>
                         </div>
                         <div class="stats-separator"></div>
                         <div class="stats-group">
-                            <div class="stats-group-value" data-field="stars-count">
+                            <div
+                                class="stats-group-value"
+                                data-field="stars-count"
+                            >
                                 00
                             </div>
                             <div class="stats-group-title">Stars Collected</div>
                         </div>
                         <div class="stats-separator"></div>
                         <div class="stats-group">
-                            <div class="stats-group-value" data-field="current-streak">
+                            <div
+                                class="stats-group-value"
+                                data-field="current-streak"
+                            >
                                 00
                             </div>
                             <div class="stats-group-title">Current Streak</div>
                         </div>
                         <div class="stats-separator"></div>
                         <div class="stats-group">
-                            <div class="stats-group-value" data-field="highest-streak">
+                            <div
+                                class="stats-group-value"
+                                data-field="highest-streak"
+                            >
                                 00
                             </div>
                             <div class="stats-group-title">Highest Streak</div>
                         </div>
                     </div>
+                    <div class="stars-progress">
+                        <span class="stars-title">STAR DISTRIBUTION</span>
+                        <div class="star-progress-container">
+                            <span class="stars-number">0</span>
+                            <img src="/images/star.png" class="star-icon" />
+                            <span class="stars-progress-count" data-stars="0"
+                                >0</span
+                            >
+                            <div class="stars-progress-track">
+                                <div
+                                    class="stars-progress-bar"
+                                    data-stars="0"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="star-progress-container">
+                            <span class="stars-number">1</span>
+                            <img src="/images/star.png" class="star-icon" />
+                            <span class="stars-progress-count" data-stars="1"
+                                >0</span
+                            >
+                            <div class="stars-progress-track">
+                                <div
+                                    class="stars-progress-bar"
+                                    data-stars="1"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="star-progress-container">
+                            <span class="stars-number">2</span>
+                            <img src="/images/star.png" class="star-icon" />
+                            <span class="stars-progress-count" data-stars="2"
+                                >0</span
+                            >
+                            <div class="stars-progress-track">
+                                <div
+                                    class="stars-progress-bar"
+                                    data-stars="2"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="star-progress-container">
+                            <span class="stars-number">3</span>
+                            <img src="/images/star.png" class="star-icon" />
+                            <span class="stars-progress-count" data-stars="3"
+                                >0</span
+                            >
+                            <div class="stars-progress-track">
+                                <div
+                                    class="stars-progress-bar"
+                                    data-stars="3"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="star-progress-container">
+                            <span class="stars-number">4</span>
+                            <img src="/images/star.png" class="star-icon" />
+                            <span class="stars-progress-count" data-stars="4"
+                                >0</span
+                            >
+                            <div class="stars-progress-track">
+                                <div
+                                    class="stars-progress-bar"
+                                    data-stars="4"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="star-progress-container">
+                            <span class="stars-number">5</span>
+                            <img src="/images/star.png" class="star-icon" />
+                            <span class="stars-progress-count" data-stars="5"
+                                >0</span
+                            >
+                            <div class="stars-progress-track">
+                                <div
+                                    class="stars-progress-bar"
+                                    data-stars="5"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="visit-tomorrow">PLEASE VISIT TOMORROW</span>
+                    <div class="share-timer">
+                        <div class="timer">
+                            <span class="timer-text">NEXT DICELE</span>
+                            <span class="timer-time" data-field="timer-time"
+                                >00:00:00</span
+                            >
+                        </div>
+                        <div class="share" onclick="statShare()">
+                            <img src="/images/share.png" class="share-icon" />
+                            <span class="share-text">SHARE</span>
+                        </div>
+                    </div>
                 </div>
-                <span class="win-text">COME BACK TOMORROW TO CONTINUE YOUR STREAK</span>
             </div>
-        </div>
-        <!-- Main content -->
-        <div class="play-area">
-            <div class="square-outer">
-                <span class="game-title">
-                    <span class="game-mode">Daily Dicele </span>
-                    <span class="game-number">#00</span>
-                </span>
-                <div class="square" id="game">
-                    <div id="board">
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice no-drag" data-value="6"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice no-drag" data-value="6"></div>
-                        <div class="dice" data-value="0"></div>
-
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice no-drag" data-value="6"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice no-drag" data-value="6"></div>
-                        <div class="dice" data-value="0"></div>
-                        
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        <div class="dice" data-value="0"></div>
-                        
+            <!-- Help modal -->
+            <div class="w3-modal" id="help-modal">
+                <div class="w3-modal-content w3-animate-bottom w3-card-4">
+                    <div class="help-banner">
+                        <div class="banner-left"></div>
+                        <span class="banner-text">HOW TO PLAY</span>
+                        <div class="banner-right"></div>
                     </div>
-                    <div class="game-sum-container-vertical">
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
+                    <div
+                        class="modal-close-icon"
+                        onclick="closeModal('help-modal')"
+                    >
+                        &times;
                     </div>
-                    <div class="game-sum-container-horizontal">
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <div class="circle sum"></div>
-                        <img src="/images/sum.png" class="corner-sum-icon" />
+                    <span class="help-text"
+                        >Solve the DICELE in 21 moves or less</span
+                    >
+                    <div class="help-grid">
+                        <div class="help-grid-text">
+                            Rearrange the dice such that they add up to the sum
+                            of rows and columns indicated on the board.
+                        </div>
+                        <div class="help-grid-sum-vertical">
+                            <span class="help-grid-sum-value">15</span>
+                            <span class="help-grid-sum-value">18</span>
+                            <span class="help-grid-sum-value">21</span>
+                            <span class="help-grid-sum-value">9</span>
+                            <span class="help-grid-sum-value">11</span>
+                        </div>
+                        <div class="help-grid-sum-horizontal">
+                            <span class="help-grid-sum-value">15</span>
+                            <span class="help-grid-sum-value">18</span>
+                            <span class="help-grid-sum-value">21</span>
+                            <span class="help-grid-sum-value">9</span>
+                            <span class="help-grid-sum-value">11</span>
+                        </div>
+                        <div class="help-grid-sum-icon-container">
+                            <img
+                                src="/images/sum.png"
+                                class="help-grid-sum-icon"
+                            />
+                        </div>
+                    </div>
+                    <div class="help-method-text">
+                        You can swap any two dice on the board. The dice colour
+                        will change to show how close you are.
+                    </div>
+                    <span class="help-method-example-text">EXAMPLE</span>
+                    <div class="help-example-group">
+                        <div class="help-example-part">
+                            <img
+                                src="/images/help_1.png"
+                                class="help-example-image"
+                            />
+                            <span class="help-example-desc"
+                                >Dice is neither in correct row nor in correct
+                                column</span
+                            >
+                        </div>
+                        <div class="help-example-seperator"></div>
+                        <div class="help-example-part">
+                            <img
+                                src="/images/help_2.png"
+                                class="help-example-image"
+                            />
+                            <span class="help-example-desc"
+                                >Dice is either in correct row or in correct
+                                column</span
+                            >
+                        </div>
+                        <div class="help-example-seperator"></div>
+                        <div class="help-example-part">
+                            <img
+                                src="/images/help_3.png"
+                                class="help-example-image"
+                            />
+                            <span class="help-example-desc"
+                                >Dice is in correct position</span
+                            >
+                        </div>
                     </div>
                 </div>
-                <span class="moves-text">
-                    <span class="moves-number"> 21 </span>
-                    moves remaining
-                </span>
             </div>
-            <div class="game-ad-box">
+            <!-- Archive modal -->
+            <div class="w3-modal" id="archive-modal">
+                <div class="w3-modal-content w3-animate-bottom">
+                    <div class="archive-banner">
+                        <div class="banner-left"></div>
+                        <span class="banner-text">ARCHIVE</span>
+                        <div class="banner-right"></div>
+                    </div>
+                    <div
+                        class="modal-close-icon"
+                        onclick="closeModal('archive-modal')"
+                    >
+                        &times;
+                    </div>
+                    <span class="archive-text"
+                        >Welcome to the Dicele Archive. Here you will find the
+                        complete history of all our puzzles. These do not count
+                        towards your regular Statistics, but are still very much
+                        enjoyable with tea or coffee.</span
+                    >
+                    <div class="archive-separator"></div>
+                    <div class="archive-stats">
+                        <div class="archive-stats-left">
+                            <span class="archive-stats-title">PLAYED</span>
+                        </div>
+                        <div class="archive-stats-right">
+                            <span
+                                class="archive-stats-value"
+                                data-title="games-played"
+                                >0/77 (0%)</span
+                            >
+                        </div>
+                    </div>
+                    <div class="archive-stats">
+                        <div class="archive-stats-left">
+                            <span class="archive-stats-title">COMPLETED</span>
+                        </div>
+                        <div class="archive-stats-right">
+                            <span
+                                class="archive-stats-value"
+                                data-title="games-completed"
+                                >0/77 (0%)</span
+                            >
+                        </div>
+                    </div>
+                    <div class="archive-stats">
+                        <div class="archive-stats-left">
+                            <img
+                                src="/images/star.png"
+                                class="archive-stats-star"
+                            />
+                            <img
+                                src="/images/star.png"
+                                class="archive-stats-star"
+                            />
+                            <img
+                                src="/images/star.png"
+                                class="archive-stats-star"
+                            />
+                            <img
+                                src="/images/star.png"
+                                class="archive-stats-star"
+                            />
+                            <img
+                                src="/images/star.png"
+                                class="archive-stats-star"
+                            />
+                        </div>
+                        <div class="archive-stats-right">
+                            <span
+                                class="archive-stats-value"
+                                data-title="games-maxed"
+                                >0/77 (0%)</span
+                            >
+                        </div>
+                    </div>
+                    <div class="archive-separator"></div>
+                    <div class="archive-list" id="archive-list"></div>
+                </div>
             </div>
-        </div>
-    </div>
+            <!-- Win modal -->
+            <div class="w3-modal" id="win-modal">
+                <div class="w3-modal-content w3-animate-bottom">
+                    <div class="win-banner">
+                        <div class="banner-left"></div>
+                        <span class="banner-text">CONGRATULATIONS</span>
+                        <div class="banner-right"></div>
+                    </div>
+                    <div class="win-stars-container" data-field="win-stars">
+                        <img src="/images/no_star.png" class="finish-star" />
+                        <img src="/images/no_star.png" class="finish-star" />
+                        <img src="/images/no_star.png" class="finish-star" />
+                        <img src="/images/no_star.png" class="finish-star" />
+                        <img src="/images/no_star.png" class="finish-star" />
+                    </div>
+                    <div class="score-container">
+                        <span class="score-text">SCORE</span>
+                        <div class="score-lower">
+                            <span class="score-number" data-field="score">
+                                61994
+                            </span>
+                            <!-- <img
+                                src="/images/score_icon.png"
+                                class="score-icon"
+                            /> -->
+                        </div>
+                    </div>
+                    <div class="win-stats">
+                        <div class="win-stats-group">
+                            <img
+                                src="/images/moves.png"
+                                class="win-stats-icon"
+                            />
+                            <span
+                                class="win-stats-text"
+                                data-field="finish-moves"
+                                >14/21</span
+                            >
+                        </div>
+                        <div class="win-stats-group">
+                            <img
+                                src="/images/timer.png"
+                                class="win-stats-icon"
+                            />
+                            <span
+                                class="win-stats-text"
+                                data-field="finish-time"
+                                >88m 59s</span
+                            >
+                        </div>
+                    </div>
+                    <div class="ranking-container">
+                        <div class="ranking-modes">
+                            <div
+                                class="ranking-heading level-ranking"
+                                data-selected="true"
+                            >
+                                LEVEL RANKINGS
+                            </div>
+                            <div
+                                class="ranking-heading global-ranking"
+                                data-selected="false"
+                            >
+                                GLOBAL RANKINGS
+                            </div>
+                        </div>
+                        <div class="ranking-titles">
+                            <div class="ranking-grid">
+                                <span class="ranking-title">RANK</span>
+                                <span class="ranking-title">PLAYER</span>
+                                <span class="ranking-title">SCORE</span>
+                            </div>
+                        </div>
+                        <div
+                            class="ranking-entry"
+                            data-rank="1"
+                            data-rank-type="level"
+                        ></div>
+                        <div
+                            class="ranking-entry"
+                            data-rank="2"
+                            data-rank-type="level"
+                        ></div>
+                        <div
+                            class="ranking-entry"
+                            data-rank="3"
+                            data-rank-type="level"
+                        ></div>
+                        <div
+                            class="ranking-entry"
+                            data-rank="1"
+                            data-rank-type="global"
+                        ></div>
+                        <div
+                            class="ranking-entry"
+                            data-rank="2"
+                            data-rank-type="global"
+                        ></div>
+                        <div
+                            class="ranking-entry"
+                            data-rank="3"
+                            data-rank-type="global"
+                        ></div>
+                        <div class="ranking-self" data-rank-type="level">
+                            <div class="ranking-grid">
+                                <span class="rank-number" data-field="rank-self"
+                                    >45</span
+                                >
+                                <span class="rank-name">YOU</span>
+                                <span class="rank-score" data-field="score-self"
+                                    >5474</span
+                                >
+                            </div>
+                        </div>
+                        <div class="ranking-self" data-rank-type="global">
+                            <div class="ranking-grid">
+                                <span class="rank-number" data-field="rank-self"
+                                    >45</span
+                                >
+                                <span class="rank-name">YOU</span>
+                                <span class="rank-score" data-field="score-self"
+                                    >5474</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <div class="retry-button">
+                            <img
+                                src="/images/retry_icon.png"
+                                class="retry-icon"
+                            />
+                            <span class="retry-text">RETRY</span>
+                        </div>
+                        <div class="next-button">
+                            <span class="next-text">NEXT GAME</span>
+                        </div>
+                        <div class="share-whatsapp-button">
+                            <img
+                                src="/images/whatsapp.png"
+                                class="share-whatsapp-icon"
+                            />
+                            <span class="share-whatsapp-text">SHARE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Lose modal -->
+            <div class="w3-modal" id="lose-modal">
+                <div class="w3-modal-content w3-animate-bottom">
+                    <div class="lose-banner">
+                        <div class="banner-left"></div>
+                        <span class="banner-text">OUT OF MOVES</span>
+                        <div class="banner-right"></div>
+                    </div>
+                    <div class="moves-container">
+                        <span
+                            class="lose-moves-left"
+                            data-field="lose-moves-left"
+                            >0</span
+                        >
+                        <span class="lose-moves-text">MOVES</span>
+                    </div>
+                    <span class="lose-moves-meta-text"
+                        >Add 5 moves to keep playing</span
+                    >
+                    <div class="add-moves-button">
+                        <img
+                            src="/images/add_moves.png"
+                            class="add-moves-icon"
+                        />
+                        <span class="add-moves-text">ADD 5 MOVES</span>
+                        <span class="add-meta-text">AD</span>
+                    </div>
+                    <div class="try-again-button">
+                        <img
+                            src="/images/retry_icon.png"
+                            class="try-again-icon"
+                        />
+                        <span class="retry-text">TRY AGAIN</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Main content -->
+            <div class="play-area">
+                <progress id="loader" value="30" max="100" style="display:none"></progress>
+                <div class="square-outer">
+                    <span class="game-title">
+                        <span class="game-mode">Dicele Level</span>
+                        <span class="game-number">00</span>
+                    </span>
+                    <div class="square" id="game">
+                        <div id="board">
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
 
-    <div class="desktop-vert-container"></div>
-    <script>
-        const winComment = `Aren't you a genius!`;
-        const boxModalContent = `<h6 class = "tutMsg">SWAP DICE TO FIND ITS</h6>
-    <h6 class = "tutMsg">CORRECT PLACE</h6>`;
-        const dailyDicele = `Daily Dicele`;
-        const unattempted = `UNATTEMPTED`;
-        const dicele = `Dicele`;
-    </script>
-    <script src="js/index.js"></script>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice no-drag" data-value="6"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice no-drag" data-value="6"></div>
+                            <div class="dice" data-value="0"></div>
+
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice no-drag" data-value="6"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice no-drag" data-value="6"></div>
+                            <div class="dice" data-value="0"></div>
+
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                            <div class="dice" data-value="0"></div>
+                        </div>
+                        <div class="game-sum-container-vertical">
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                        </div>
+                        <div class="game-sum-container-horizontal">
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <div class="circle sum"></div>
+                            <img
+                                src="/images/sum.png"
+                                class="corner-sum-icon"
+                            />
+                        </div>
+                    </div>
+                    <span class="moves-text">
+                        <span class="moves-number"> 21 </span>
+                        moves remaining
+                    </span>
+                    <div class="game-ad-box"></div>
+                </div>
+                <!-- <div class="game-ad-box">
+                    <button onclick="showBumperAd()">
+                        Click for Bumper Ad
+                    </button>
     
-    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
-</body>
+                    <button onclick="stickyBannerAd()">
+                        Click for Sticky Ad
+                    </button>
+    
+                    <button onclick="showLeaderboardAd()">
+                        Click for Banner Ad
+                    </button>
+    
+                    <button onclick="rewardedAd()">
+                        Click for Rewarded Ad
+                    </button>
+                    <button onclick="rewardEvent()">
+                        Click display Rewarded Ad
+                    </button>
+                    <button onclick="replayEvent()">
+                        Click display Replay Ad
+                    </button>
+                    
+                </div> -->
+            </div>
+        </div>
 
+        <div class="desktop-vert-container"></div>
+        <script>
+            const winComment = `Aren't you a genius!`;
+            const boxModalContent = `<h6 class = "tutMsg">SWAP DICE TO FIND ITS</h6>
+    <h6 class = "tutMsg">CORRECT PLACE</h6>`;
+            const dailyDicele = `Daily Dicele`;
+            const unattempted = `UNATTEMPTED`;
+            const dicele = `Dicele`;
+            const rank = `RANK`;
+            const score = `SCORE`;
+        </script>
+        <script src="/js/index.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+        <script>
+            function rewardEvent() {
+                if (!is_rewarded_noFill) {
+                    window.GlanceGamingAdInterface.showRewarededAd(rewardInstance);
+                } else {
+                    runOnAdClosed();
+                }
+            }
+
+            function addBannerAd() {
+                $("#bannerOverlay").css("display", "flex");
+                var stickyBannerDiv = `<div id="banner-ad">
+                       </div>`;
+                $("#bannerOverlay").append($(stickyBannerDiv));
+                console.log("stickyBannerDiv added...");
+            }
+
+            function stickyBannerAd() {
+                addBannerAd();
+                stickyBannerInstance =
+                    window.GlanceGamingAdInterface.showStickyBannerAd(
+                        StickyObj,
+                        bannerCallbacks
+                    );
+                console.log("showStickyBannerAd");
+                // console.log("stickyObject", stickyBannerInstance);
+            }
+
+            function addLeaderboard() {
+                var leaderBoardDiv = `<div id="div-gpt-ad-1">
+                               </div>`;
+                $("body").append($(leaderBoardDiv));
+                console.log("leaderboardDiv added...");
+            }
+
+            function showLeaderboardAd() {
+                addLeaderboard();
+                LBBannerInstance = window.GlanceGamingAdInterface.showBannerAd(
+                    LBBannerObj,
+                    bannerCallbacks
+                );
+                // $("body").append($(LBBannerInstance));
+                console.log("showLeaderboard");
+            }
+
+            function rewardedAd() {
+                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+                    rewardObj,
+                    rewardedCallbacks
+                );
+                console.log("replay Ads"); 
+                // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+                //     replayObj,
+                //     rewardedCallbacks
+                // );
+                // console.log("replay retry Ads"); 
+            }
+
+            // function replayAd() {
+            //     rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+            //         replayObj,
+            //         rewardedCallbacks
+            //     );
+            //     console.log("replay retry game Ads"); 
+            // }
+        </script>
+
+        <script>
+            addLoader();
+            var progress, date, interval;
+            // wait until DOM has been loaded to perform DOM Manipulations
+            document.addEventListener('DOMContentLoaded', function() {
+                date = Date.now(); //current timestamp since UNIX epoch
+
+                //get a reference to the progress element using its id attribute
+                progress = document.getElementById('loader');
+                interval = setInterval(updateProgress, 1000);
+            });
+
+            function updateProgress() {
+                // msg.innerHTML = 'begin updateProgress() - progress.value = '+progress.value + "<br>" + msg.innerHTML;
+                progressBar(null, progress.value);
+                if (progress.value >= 100) {
+                    //stop running this function after value reaches 100 (percent)
+                    clearInterval(interval);
+                    refreshStickyBannerAd();
+                    showStickyBannerAd();
+                    rewardedAd();
+                    // replayAd();
+                }
+                var newDate = Date.now();
+                var milliseconds = newDate - date;
+
+                var seconds = Math.floor(milliseconds / 1000);
+                loader.value += seconds * 5;
+            }
+        </script>
+    </body>
 </html>
