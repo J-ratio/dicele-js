@@ -749,7 +749,7 @@
             </div>
             <!-- Main content -->
             <div class="play-area">
-                <progress id="loader" value="15" max="100" style="display:none"></progress>
+                <progress id="loader" value="30" max="100" style="display:none"></progress>
                 <div class="square-outer">
                     <span class="game-title">
                         <span class="game-mode">Dicele Level</span>
@@ -947,7 +947,7 @@
                 var milliseconds = newDate - date;
 
                 var seconds = Math.floor(milliseconds / 1000);
-                loader.value += seconds;
+                loader.value += seconds * 5;
             }
         </script>
     </body>
