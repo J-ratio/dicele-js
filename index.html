@@ -812,7 +812,7 @@
                     </span>
                     <div class="game-ad-box"></div>
                 </div>
-                <!-- <div class="game-ad-box">
+                <div class="game-ad-box">
                     <button onclick="showBumperAd()">
                         Click for Bumper Ad
                     </button>
@@ -828,14 +828,16 @@
                     <button onclick="rewardedAd()">
                         Click for Rewarded Ad
                     </button>
-                    <button onclick="rewardEvent()">
+                    <button onclick="showRewardedAd()">
                         Click display Rewarded Ad
+                    </button>
+                    <button onclick="replayAd()">
+                        Click display Replay Ad
                     </button>
                     <button onclick="replayEvent()">
                         Click display Replay Ad
                     </button>
-                    
-                </div> -->
+                </div>
             </div>
         </div>
 
@@ -854,7 +856,33 @@
 
         <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
         <script>
+
+            function loadRewardAd() {
+                is_rewarded_noFill = true
+                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+                console.log("Loading Reward ");
+            }
+            function showRewardedAd() {
+                _triggerReason = "Reward";
+                if (!is_rewarded_noFill) {
+                    console.log("Showing Reward Ad");
+                    window.GlanceGamingAdInterface.showRewarededAd(rewardInstance);
+                }
+                else {
+                    console.log("Ad not available Loading Again");
+                    loadRewardAd();
+                    // runOnAdClosed();
+                }
+            }
+
+            function loadReplayAd() {
+                is_replay_noFill = true;
+                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+                console.log("Loading Replay ");
+            }
+
             function rewardEvent() {
+                console.log('is_rewarded_noFill ', is_rewarded_noFill);
                 if (!is_rewarded_noFill) {
                     window.GlanceGamingAdInterface.showRewarededAd(rewardInstance);
                 } else {
@@ -899,11 +927,9 @@
             }
 
             function rewardedAd() {
-                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-                    rewardObj,
-                    rewardedCallbacks
-                );
-                console.log("replay Ads"); 
+                is_rewarded_noFill = true;
+                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+                console.log("replay reward Ads"); 
                 // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
                 //     replayObj,
                 //     rewardedCallbacks
@@ -911,13 +937,10 @@
                 // console.log("replay retry Ads"); 
             }
 
-            // function replayAd() {
-            //     rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-            //         replayObj,
-            //         rewardedCallbacks
-            //     );
-            //     console.log("replay retry game Ads"); 
-            // }
+            function replayAd() {
+                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+                console.log("replay retry game Ads"); 
+            }
         </script>
 
         <script>
@@ -938,10 +961,10 @@
                 if (progress.value >= 100) {
                     //stop running this function after value reaches 100 (percent)
                     clearInterval(interval);
-                    refreshStickyBannerAd();
-                    showStickyBannerAd();
-                    rewardedAd();
-                    // replayAd();
+                    // refreshStickyBannerAd();
+                    // showStickyBannerAd();
+                    loadRewardAd();
+                    // loadReplayAd();
                 }
                 var newDate = Date.now();
                 var milliseconds = newDate - date;

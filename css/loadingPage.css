@@ -125,9 +125,31 @@ transform: scale(0.5);
 
   }
 
+  #div-gpt-ad-1 {
+    display: flex;
+    justify-content: center;
+    transform: scale(0.8);
+    border: 6px solid rgb(255, 255, 255, 1);
+    border-radius: 12px;
+    bottom: 5px;
+    margin-top: 10%;
+    position: absolute;
+    /* position: absolute; */
+
+  }
+
 @media screen and (orientation:landscape)
 {
     #div-gpt-ad-2{
+        position: absolute;
+        top: 10%;
+        right: 12%;
+        overflow: auto;
+        margin-top: 0;
+        bottom: auto;
+    }
+
+    #div-gpt-ad-1{
         position: absolute;
         top: 10%;
         right: 12%;

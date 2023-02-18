@@ -424,6 +424,12 @@ function fillArchive() {
 }
 
 function initBoard() {
+    // rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+    //     rewardObj,
+    //     rewardedCallbacks
+    // );
+    // console.log("replay retuy Ads"); 
+
     moves = 21;
     adCount = 0;
     state = Array.from(SpawnArr[level]);
@@ -789,7 +795,9 @@ document.querySelector(".next-button").addEventListener("click", () => {
     _triggerReason = 'NextGame';
     rewardEvent();
     // initBoard();
-    // closeModal("win-modal");
+
+
+            // closeModal("win-modal");
 });
 
 // TODO: Add Whatsapp share stuff
@@ -800,8 +808,8 @@ document
 // Lose modal event listeners
 
 document.querySelector(".add-moves-button").addEventListener("click", () => {
-    _triggerReason = 'Reward';
-    rewardEvent();
+    _triggerReason = 'replay';
+    replayEvent();
     // adCount++;
     // updateLocalStorage();
     // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
@@ -809,7 +817,7 @@ document.querySelector(".add-moves-button").addEventListener("click", () => {
 });
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
-    _triggerReason = 'replay';
+    _triggerReason = 'Reward';
     rewardEvent();
 });
 
