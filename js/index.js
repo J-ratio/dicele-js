@@ -867,7 +867,6 @@ document.querySelector(".next-button").addEventListener("click", () => {
     closeModal("win-modal");
 });
 
-// TODO: Add Whatsapp share stuff
 document
     .querySelector(".share-whatsapp-button")
     .addEventListener("click", () => {
@@ -941,6 +940,7 @@ document.querySelector(".add-moves-button").addEventListener("click", () => {
 document.querySelector(".try-again-button").addEventListener("click", () => {
     _triggerReason = "replay";
     rewardEvent();
+    initBoard();
 });
 
 /*

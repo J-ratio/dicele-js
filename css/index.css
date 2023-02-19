@@ -41,6 +41,10 @@ body {
     height: 200px;
 }
 
+.preload-dices {
+    display: none;
+}
+
 .center {
     align-items: center;
     display: flex;
