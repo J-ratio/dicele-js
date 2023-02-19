@@ -1269,6 +1269,23 @@ body {
     transition: all 250ms ease-in-out;
 }
 
+
+.animate {
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+
 .dice > img {
     width: 100%;
     height: 100%;

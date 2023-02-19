@@ -637,6 +637,7 @@ function writeBoard() {
     });
 }
 
+
 function checkMatched() {
     matches = 0;
     for (var i = 0; i < 25; i++) {
@@ -647,6 +648,19 @@ function checkMatched() {
     matches -= 4;
 }
 
+var animDice1;
+var animDice2;
+
+$(function() {
+    animDice1.on("animationend", function(){
+        animDice1.classList.removeClass("animate");
+    });
+    animDice2.on("animationend", function(){
+        animDice1.classList.removeClass("animate");
+      });
+});
+
+
 var sortable = Sortable.create(board, {
     swap: true,
     animation: 250,
@@ -655,10 +669,12 @@ var sortable = Sortable.create(board, {
     swapClass: "dice-drop",
     ghostClass: "dice-ghost",
     onMove: function (evt) {
+        animDice2 = evt.related;
+        animDice1 = evt.dragged;
         return (
             evt.related.className.indexOf("no-drag") === -1 &&
             evt.related.getAttribute("data-value") !==
-                evt.dragged.getAttribute("data-value")
+            evt.dragged.getAttribute("data-value")
         );
     },
     onUpdate: function (evt) {
@@ -667,6 +683,8 @@ var sortable = Sortable.create(board, {
         state[evt.oldIndex] = state[evt.newIndex];
         state[evt.newIndex] = temp;
         writeBoard();
+        animDice1.classList.add("animate");
+        animDice2.classList.add("animate");
 
         playTime += Math.floor((Date.now() - startTime) / 1000);
 
