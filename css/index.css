@@ -189,6 +189,11 @@ body {
     align-self: center;
 }
 
+.sidebar-social-icon {
+    height: 2rem;
+    margin: 0.25rem;
+}
+
 .sidebar-mail {
     font-size: 0.65rem;
     font-weight: bold;
