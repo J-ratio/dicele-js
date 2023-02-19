@@ -432,7 +432,22 @@ let { userID, level, moves, adCount, state, startTime, playTime, levels } =
 let matches;
 let solution = Array.from(SolutionArr[level]);
 writeBoard();
+startTime = Date.now();
 updateLocalStorage();
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        playTime += Math.floor((Date.now() - startTime) / 1000);
+    } else {
+        startTime = Date.now();
+    }
+    updateLocalStorage();
+});
+
+window.addEventListener("beforeunload", () => {
+    playTime += Math.floor((Date.now() - startTime) / 1000);
+    updateLocalStorage();
+});
 
 function fillArchive() {
     const list = levels
@@ -723,7 +738,6 @@ function showWinScreen() {
     }/21`;
     document.querySelector("[data-field=finish-time]").innerHTML = formatTime();
     const score = calculateScore();
-    let highScore = score;
     const starsCount = adCount === 0 ? (moves >= 5 ? 5 : 5 - moves) : 0;
     if (levels[level]) {
         if (score > levels[level].score) {
@@ -764,7 +778,11 @@ function showWinScreen() {
                     ele.innerHTML = `
                         <div class="ranking-grid">
                             <span class="rank-number">${index + 1}</span>
-                            <span class="rank-name">${rank} ${index + 1}</span>
+                            <span class="rank-name">${
+                                index + 1 === data.daily[3].rank
+                                    ? you
+                                    : rank.concat(" ").concat(index + 1)
+                            }</span>
                             <span class="rank-score">${
                                 data.daily[index].score
                             }</span>
@@ -776,7 +794,11 @@ function showWinScreen() {
                     ele.innerHTML = `
                         <div class="ranking-grid">
                             <span class="rank-number">${index + 1}</span>
-                            <span class="rank-name">${rank} ${index + 1}</span>
+                            <span class="rank-name">${
+                                index + 1 === data.overall[3].rank
+                                    ? you
+                                    : rank.concat(" ").concat(index + 1)
+                            }</span>
                             <span class="rank-score">${
                                 data.overall[index].score
                             }</span>
@@ -791,10 +813,11 @@ function showWinScreen() {
             ).innerHTML = data.overall[3].rank;
             document.querySelector(
                 "[data-rank-type=daily] > .ranking-grid > [data-field=score-self]"
-            ).innerHTML = data.daily[3].rank;
+            ).innerHTML = data.daily[3].score;
             document.querySelector(
                 "[data-rank-type=all-time] > .ranking-grid > [data-field=score-self]"
-            ).innerHTML = data.overall[3].rank;
+            ).innerHTML = data.overall[3].score;
+            document.querySelector(".ranking-animation").style.display = "none";
         })
         .catch((err) => console.error(err));
     openModal("win-modal");
@@ -853,7 +876,7 @@ document
         });
 
         let stars = 0;
-        levels.forEach(level => stars += level.starsCount);
+        levels.forEach((level) => (stars += level.starsCount));
 
         const toCopy =
             "#Dicele stats" +

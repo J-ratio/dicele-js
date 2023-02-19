@@ -126,11 +126,11 @@
         <script src="/js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="/js/gpid.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-        
+
         <script type="text/javascript" src="js/loadingPage.js"></script>
-        <link rel="stylesheet" href="/css/loadingPage.css">
+        <link rel="stylesheet" href="/css/loadingPage.css" />
         <script type="text/javascript" src="js/stickyBanner.js"></script>
-        <link rel="stylesheet" href="/css/stickyBanner.css">
+        <link rel="stylesheet" href="/css/stickyBanner.css" />
 
         <script
             type="text/javascript"
@@ -195,17 +195,6 @@
                     <span class="sidebar-icon-label">Blogs</span>
                 </div>
                 <div class="sidebar-separator"></div>
-                <div class="sidebar-item">
-                    <a href="https://twitter.com/dicele_game" class="sidebar-social-link">
-                        <img src="/images/twitter-square.svg" alt="" class="sidebar-social-icon">
-                    </a>
-                    <a href="https://www.instagram.com/dicele_game/" class="sidebar-social-link">
-                        <img src="/images/instagram-square.svg" alt="" class="sidebar-social-icon">
-                    </a>
-                    <a href="https://www.facebook.com/dicele.game" class="sidebar-social-link">
-                        <img src="/images/facebook-square.svg" alt="" class="sidebar-social-icon">
-                    </a>
-                </div>
                 <div class="sidebar-item" onclick="contact()">
                     <img
                         src="/images/mail_icon.png"
@@ -614,6 +603,25 @@
                         </div>
                     </div>
                     <div class="ranking-container">
+                        <div class="ranking-animation">
+                            <svg
+                                class="spinner"
+                                width="65px"
+                                height="65px"
+                                viewBox="0 0 66 66"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    class="path"
+                                    fill="none"
+                                    stroke-width="6"
+                                    stroke-linecap="round"
+                                    cx="33"
+                                    cy="33"
+                                    r="30"
+                                ></circle>
+                            </svg>
+                        </div>
                         <div class="ranking-modes">
                             <div
                                 class="ranking-heading level-ranking"
@@ -639,32 +647,68 @@
                             class="ranking-entry"
                             data-rank="1"
                             data-rank-type="daily"
-                        ></div>
+                        >
+                            <div class="ranking-grid">
+                                <span class="rank-number">1</span>
+                                <span class="rank-name">Rank 1</span>
+                                <span class="rank-score">1234</span>
+                            </div>
+                        </div>
                         <div
                             class="ranking-entry"
                             data-rank="2"
                             data-rank-type="daily"
-                        ></div>
+                        >
+                            <div class="ranking-grid">
+                                <span class="rank-number">2</span>
+                                <span class="rank-name">Rank 2</span>
+                                <span class="rank-score">1234</span>
+                            </div>
+                        </div>
                         <div
                             class="ranking-entry"
                             data-rank="3"
                             data-rank-type="daily"
-                        ></div>
+                        >
+                            <div class="ranking-grid">
+                                <span class="rank-number">3</span>
+                                <span class="rank-name">Rank 3</span>
+                                <span class="rank-score">1234</span>
+                            </div>
+                        </div>
                         <div
                             class="ranking-entry"
                             data-rank="1"
                             data-rank-type="all-time"
-                        ></div>
+                        >
+                            <div class="ranking-grid">
+                                <span class="rank-number">1</span>
+                                <span class="rank-name">Rank 1</span>
+                                <span class="rank-score">1234</span>
+                            </div>
+                        </div>
                         <div
                             class="ranking-entry"
                             data-rank="2"
                             data-rank-type="all-time"
-                        ></div>
+                        >
+                            <div class="ranking-grid">
+                                <span class="rank-number">2</span>
+                                <span class="rank-name">Rank 2</span>
+                                <span class="rank-score">1234</span>
+                            </div>
+                        </div>
                         <div
                             class="ranking-entry"
                             data-rank="3"
                             data-rank-type="all-time"
-                        ></div>
+                        >
+                            <div class="ranking-grid">
+                                <span class="rank-number">3</span>
+                                <span class="rank-name">Rank 3</span>
+                                <span class="rank-score">1234</span>
+                            </div>
+                        </div>
                         <div class="ranking-self" data-rank-type="daily">
                             <div class="ranking-grid">
                                 <span class="rank-number" data-field="rank-self"
@@ -747,7 +791,12 @@
             </div>
             <!-- Main content -->
             <div class="play-area">
-                <progress id="loader" value="30" max="100" style="display:none"></progress>
+                <progress
+                    id="loader"
+                    value="30"
+                    max="100"
+                    style="display: none"
+                ></progress>
                 <div class="square-outer">
                     <span class="game-title">
                         <span class="game-mode">Dicele Level</span>
@@ -847,6 +896,7 @@
             const dicele = `Dicele`;
             const rank = `RANK`;
             const score = `SCORE`;
+            const you = `YOU`;
         </script>
         <script src="/js/index.js"></script>
 
@@ -854,7 +904,9 @@
         <script>
             function rewardEvent() {
                 if (!is_rewarded_noFill) {
-                    window.GlanceGamingAdInterface.showRewarededAd(rewardInstance);
+                    window.GlanceGamingAdInterface.showRewarededAd(
+                        rewardInstance
+                    );
                 } else {
                     runOnAdClosed();
                 }
@@ -901,12 +953,12 @@
                     rewardObj,
                     rewardedCallbacks
                 );
-                console.log("replay Ads"); 
+                console.log("replay Ads");
                 // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
                 //     replayObj,
                 //     rewardedCallbacks
                 // );
-                // console.log("replay retry Ads"); 
+                // console.log("replay retry Ads");
             }
 
             // function replayAd() {
@@ -914,7 +966,7 @@
             //         replayObj,
             //         rewardedCallbacks
             //     );
-            //     console.log("replay retry game Ads"); 
+            //     console.log("replay retry game Ads");
             // }
         </script>
 
@@ -922,11 +974,11 @@
             addLoader();
             var progress, date, interval;
             // wait until DOM has been loaded to perform DOM Manipulations
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 date = Date.now(); //current timestamp since UNIX epoch
 
                 //get a reference to the progress element using its id attribute
-                progress = document.getElementById('loader');
+                progress = document.getElementById("loader");
                 interval = setInterval(updateProgress, 1000);
             });
 
