@@ -430,6 +430,7 @@ function updateLocalStorage() {
 let { userID, level, moves, adCount, state, startTime, playTime, levels } =
     data;
 let matches;
+let highScore = 0;
 let solution = Array.from(SolutionArr[level]);
 writeBoard();
 startTime = Date.now();
@@ -497,10 +498,12 @@ function initBoard() {
     fillArchive();
 }
 
-if (newUser) {
+if (newUser) {  
     initBoard();
     openModal("help-modal");
     tutorial = true;
+    sendCustomAnalyticsEvent("game_start", {});
+    console.log("game_load event added");
 } else {
     document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
@@ -756,6 +759,7 @@ function showWinScreen() {
     }/21`;
     document.querySelector("[data-field=finish-time]").innerHTML = formatTime();
     const score = calculateScore();
+    highScore = score;
     const starsCount = adCount === 0 ? (moves >= 5 ? 5 : 5 - moves) : 0;
     if (levels[level]) {
         if (score > levels[level].score) {
@@ -839,6 +843,10 @@ function showWinScreen() {
         })
         .catch((err) => console.error(err));
     openModal("win-modal");
+
+    sendCustomAnalyticsEvent("game_end", {level: level, score: score, highScore: highScore });
+    console.log("game_end event added");
+
     level++;
     initBoard();
     party.confetti(document.querySelector(".win-banner"), {
@@ -848,6 +856,8 @@ function showWinScreen() {
 
 function showLoseScreen() {
     openModal("lose-modal");
+    sendCustomAnalyticsEvent("game_end", {level: level, score: score, highScore: highScore });
+    console.log("game_end event added");
 }
 
 // Win modal event listeners
@@ -873,16 +883,22 @@ document.querySelector(".global-ranking").addEventListener("click", () => {
 document.querySelector(".retry-button").addEventListener("click", () => {
     _triggerReason = "Retry";
     rewardEvent();
-    level--;
-    initBoard();
-    closeModal("win-modal");
+    // level--;
+    // initBoard();
+    // closeModal("win-modal");
+
+    sendCustomAnalyticsEvent("game_replay", {level: level, score:0, highScore: highScore});
+    console.log("game_replay event added");
+
 });
 
 document.querySelector(".next-button").addEventListener("click", () => {
     _triggerReason = "NextGame";
     rewardEvent();
-    initBoard();
-    closeModal("win-modal");
+    // initBoard();
+    // closeModal("win-modal");
+    sendCustomAnalyticsEvent("game_start", {});
+    console.log("game_start event added");
 });
 
 document
@@ -949,16 +965,22 @@ document
 document.querySelector(".add-moves-button").addEventListener("click", () => {
     _triggerReason = "Reward";
     rewardEvent();
-    adCount++;
-    updateLocalStorage();
-    document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
-    closeModal("lose-modal");
+    // adCount++;
+    // updateLocalStorage();
+    // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+    // closeModal("lose-modal");
+    sendCustomAnalyticsEvent("game_replay", {level: level, score:0, highScore: highScore});
+    console.log("game_replay event added");
 });
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
     _triggerReason = "replay";
     rewardEvent();
-    initBoard();
+
+    sendCustomAnalyticsEvent("game_replay", {level: level, score:0, highScore: highScore});
+    console.log("game_replay event added");
+
+    // initBoard();
 });
 
 /*

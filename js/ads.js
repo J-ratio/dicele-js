@@ -140,6 +140,10 @@ function runOnAdClosed() {
             console.log('replay NextGame ',isRewardGranted, isRewardedAdClosedByUser);
             initBoard();
             closeModal("win-modal");
+
+            sendCustomAnalyticsEvent('game_level', {level: level});
+            console.log("game_level event added");
+            
             // call function for NextGame
             _triggerReason = ''
             rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);

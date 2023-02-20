@@ -1012,6 +1012,11 @@
                     showStickyBannerAd();
                     rewardedAd();
                     // replayAd();
+                    sendCustomAnalyticsEvent("game_load", {});
+                    console.log("game_load event added");
+
+                    sendCustomAnalyticsEvent("game_start", {});
+                    console.log("game_start event added");
                 }
                 var newDate = Date.now();
                 var milliseconds = newDate - date;
