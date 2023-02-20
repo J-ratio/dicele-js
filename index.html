@@ -924,9 +924,7 @@
         <script>
             function rewardEvent() {
                 if (!is_rewarded_noFill) {
-                    window.GlanceGamingAdInterface.showRewarededAd(
-                        rewardInstance
-                    );
+                    window.GlanceGamingAdInterface.showRewarededAd(rewardInstance);
                 } else {
                     runOnAdClosed();
                 }
@@ -974,20 +972,14 @@
                     rewardedCallbacks
                 );
                 console.log("replay Ads");
-                // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-                //     replayObj,
-                //     rewardedCallbacks
-                // );
-                // console.log("replay retry Ads");
             }
 
-            // function replayAd() {
-            //     rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-            //         replayObj,
-            //         rewardedCallbacks
-            //     );
-            //     console.log("replay retry game Ads");
-            // }
+            function loadReplayAd() {
+                is_replay_noFill = true;
+                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+                console.log("Loading Replay ");
+            }
+
         </script>
 
         <script>
@@ -1011,7 +1003,8 @@
                     refreshStickyBannerAd();
                     showStickyBannerAd();
                     rewardedAd();
-                    // replayAd();
+                    // loadReplayAd();
+
                     sendCustomAnalyticsEvent("game_load", {});
                     console.log("game_load event added");
 

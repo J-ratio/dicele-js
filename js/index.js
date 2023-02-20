@@ -965,8 +965,9 @@ document
 document.querySelector(".add-moves-button").addEventListener("click", () => {
     _triggerReason = "Reward";
     rewardEvent();
-    // adCount++;
-    // updateLocalStorage();
+    adCount++;
+    updateLocalStorage();
+    console.log('replay rewarded the user, updating moves', obj.adUnitName, rewardObj.adUnitName);
     // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     // closeModal("lose-modal");
     sendCustomAnalyticsEvent("game_replay", {level: level, score:0, highScore: highScore});
