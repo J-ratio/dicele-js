@@ -103,6 +103,43 @@ function rewardedCallbacks(obj) {
 
 }
 
+function runOnAdClosed1() {
+    if (_triggerReason === "replay" || _triggerReason === "Retry") {
+        if (_triggerReason === "replay") {
+            initBoard();
+            closeModal("lose-modal");
+        } else {
+            level--;
+            initBoard();
+            closeModal("win-modal");
+        }
+        console.log('replay ', _triggerReason ,isRewardGranted, isRewardedAdClosedByUser);
+        loadReplayAd();
+    // call function for replay
+    // _triggerReason = ''
+    // $('#playMore').css("display", "none");
+    // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+
+    } else if (_triggerReason === 'Reward') {
+        console.log('replay Reward ',isRewardGranted, isRewardedAdClosedByUser);
+      // If user close ad before reward
+      if (!isRewardGranted && isRewardedAdClosedByUser) {
+        // call function for not earning reward (failure case)
+     
+      } else {
+        // console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
+        // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+        // closeModal("lose-modal");
+    // call function for earned reward  (success case)
+      }
+      loadRewardAd()
+    //   _triggerReason = ''
+    //   rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+
+    } 
+  }
+
+  
 function runOnAdClosed() {
     console.log('replay runOnAdClosed ', _triggerReason);
     if (!isRewardGranted && isRewardedAdClosedByUser) {
@@ -154,7 +191,7 @@ function runOnAdClosed() {
 
 
   function replayEvent() { 
-    _triggerReason = 'replay'
+    // _triggerReason = 'replay'
     if(!is_replay_noFill){
         window.GlanceGamingAdInterface.showRewarededAd(replayInstance);
     }else{
