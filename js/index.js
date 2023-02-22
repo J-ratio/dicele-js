@@ -17,7 +17,6 @@ function openModal(modalId) {
         gtag("event", "statsOpened", {
             Type: "statsOpened",
         });
-        writeStats();
     } else if (modalId == "help-modal") {
         gtag("event", "helpOpened", {
             Type: "helpOpened",
@@ -26,7 +25,6 @@ function openModal(modalId) {
         gtag("event", "archiveOpened", {
             Type: "archiveOpened",
         });
-        writeArchive();
     }
 }
 
@@ -499,6 +497,12 @@ function fillArchive() {
         .reverse()
         .join("");
     document.getElementById("archive-list").innerHTML = list;
+    document.querySelector(
+        ".archive-stats-value[data-title=games-played]"
+    ).innerHTML = levels.length;
+    document.querySelector(
+        ".archive-stats-value[data-title=games-maxed]"
+    ).innerHTML = levels.filter((level) => level.starsCount === 5).length;
 }
 
 function initBoard() {
@@ -514,6 +518,7 @@ function initBoard() {
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
     updateSums();
     fillArchive();
+    fillStats();
 }
 
 if (newUser) {
@@ -527,6 +532,7 @@ if (newUser) {
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
     updateSums();
     fillArchive();
+    fillStats();
     checkMatched();
 
     if (matches === 21) {
@@ -814,6 +820,7 @@ function showWinScreen() {
             overallRank = data.overall[3].rank;
             bestRank =
                 data.daily[3].rank > bestRank ? data.daily[3].rank : bestRank;
+            fillStats();
             updateLocalStorage();
             document
                 .querySelectorAll(".ranking-entry[data-rank-type=daily]")
@@ -1023,7 +1030,7 @@ document.querySelector(".try-again-button").addEventListener("click", () => {
     // initBoard();
 });
 
-function writeStats() {
+function fillStats() {
     document.querySelector("[data-field=games-played]").innerHTML =
         levels.length;
     if (levels.length) {
@@ -1055,8 +1062,6 @@ function writeStats() {
         )}%`;
     });
 }
-
-function writeArchive() {}
 
 /*
 
