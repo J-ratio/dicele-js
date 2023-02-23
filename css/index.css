@@ -773,7 +773,6 @@ body {
 
 #win-modal {
     z-index: 1;
-    display: block;
 }
 
 #win-modal > .w3-modal-content,
