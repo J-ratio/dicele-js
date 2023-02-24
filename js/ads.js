@@ -1,11 +1,8 @@
-const gameInput = { gameName: 'MLib', publisherName: 'Sagaci', surface: 'test'};
+const gameInput = { gameName: 'Dicele', publisherName: 'Sagaci' };
 
 $.getScript(
-
-   
-    "https://g.glance-cdn.com/public/content/games/xiaomi/gamesAd.js",
+    "https://g.glance-cdn.com/public/content/games/xiaomi/gamesAd.js", 
     "gpid.js"
-
 )
     .done(function (script, textStatus) {
         console.log(textStatus);
@@ -23,10 +20,10 @@ var isRewardGranted = false
 var isRewardedAdClosedByUser = false
 
 const LPMercObj = {
-    adUnitName: "Sagaci_Dicele",
-    pageName: 'Dicele',               //Game Name
-    categoryName: 'google',           //Publisher Name
-    placementName: 'Test_Banner',
+    adUnitName: "Sagaci_Dicele_Gameload_Bottom",
+    pageName: 'Sagaci_Dicele',               //Game Name
+    categoryName: 'Sagaci',           //Publisher Name
+    placementName: 'Gameload',
     containerID: "div-gpt-ad-2",            //Div Id for banner
     height: 250,
     width: 300,
@@ -35,10 +32,10 @@ const LPMercObj = {
     impid: gpID,
 }
 const StickyObj = {
-    adUnitName: "Sagaci_Dicele",
-    pageName:'Dicele',                        //Game Name
-    categoryName: 'google',                   //Publisher Name       
-    placementName: 'Test_Banner',
+    adUnitName: "Sagaci_Dicele_Ingame_Bottom",
+    pageName: 'Sagaci_Dicele',               //Game Name
+    categoryName: 'Sagaci',           //Publisher Name
+    placementName: 'Ingame',
     containerID: "banner-ad",            //Div Id for banner
     height: 50,
     width: 320,
@@ -48,10 +45,10 @@ const StickyObj = {
 }
 
 const LBBannerObj = {
-    adUnitName: "Sagaci_Dicele",
-    pageName: 'Dicele',               //Game Name
-    categoryName: 'google',           //Publisher Name
-    placementName: 'Test_Banner',
+    adUnitName: "Sagaci_Dicele_Leaderboard_Top",
+    pageName: 'Sagaci_Dicele',               //Game Name
+    categoryName: 'Sagaci',           //Publisher Name
+    placementName: 'Leaderboard',
     containerID: "div-gpt-ad-1",            //Div Id for banner
     height: 250,
     width: 300,
@@ -63,16 +60,15 @@ const LBBannerObj = {
 function successCb() {
     console.log("set up lib success")
     showBumperAd();
+
 }
 function failCb(reason) { }
 
-
-
 const replayObj = {
-    adUnitName: "Sagaci_Dicele",
-    placementName: "Test_Rewarded",
-    pageName: 'Dicele',
-    categoryName: 'google',
+    adUnitName: "Sagaci_Dicele_FsReplay_Replay",
+    placementName: "FsReplay",
+    pageName: 'Sagaci_Dicele',
+    categoryName: 'Sagaci',
     containerID: '',
     height: '',
     width: '',
@@ -81,10 +77,10 @@ const replayObj = {
     impid: gpID,
 }
 const rewardObj = {
-    adUnitName: "Sagaci_Dicele",
-    placementName: "Test_Rewarded",
-    pageName: 'Dicele',
-    categoryName: 'google',
+    adUnitName: "Sagaci_Dicele_FsRewarded_Reward",
+    placementName: "FsRewarded",
+    pageName: 'Sagaci_Dicele',
+    categoryName: 'Sagaci',
     containerID: '',
     height: '',
     width: '',
@@ -92,7 +88,6 @@ const rewardObj = {
     yc: '',
     impid: gpID,
 }
-
 
 function bannerCallbacks(obj) {
     
