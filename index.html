@@ -1005,6 +1005,9 @@
 
                     sendCustomAnalyticsEvent("game_start", {});
                     console.log("game_start event added");
+
+                    sendCustomAnalyticsEvent('game_level', {level: level});
+                    console.log("game_level event added");
                 }
                 var newDate = Date.now();
                 var milliseconds = newDate - date;
