@@ -120,11 +120,14 @@ function runOnAdClosed() {
         adCount = 0;
         loadReplayAd();
     } else if (_triggerReason === 'Reward') {
-        console.log('replay Reward ',isRewardGranted, isRewardedAdClosedByUser);
-        console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
-        document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
-        closeModal("lose-modal");
-        // call function for earned reward  (success case)
+        if (!isRewardGranted && isRewardedAdClosedByUser) {
+            adCount = 0;
+        } else {
+            console.log('replay Reward ',isRewardGranted, isRewardedAdClosedByUser);
+            console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
+            document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+            closeModal("lose-modal");    
+        }
         _triggerReason = ''
         rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
         console.log('replay rewardInstance added new ');
@@ -197,6 +200,7 @@ function runOnAdClosed() {
 
   function replayEvent() { 
     // _triggerReason = 'replay'
+    console.log(_triggerReason, is_replay_noFill);
     if(!is_replay_noFill){
         window.GlanceGamingAdInterface.showRewarededAd(replayInstance);
     }else{
