@@ -969,13 +969,11 @@
                 // console.log("replay retry Ads");
             }
 
-            // function replayAd() {
-            //     rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-            //         replayObj,
-            //         rewardedCallbacks
-            //     );
-            //     console.log("replay retry game Ads");
-            // }
+            function loadReplayAd() {
+                is_replay_noFill = true;
+                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+                console.log("Loading Replay ");
+            }
         </script>
 
         <script>
@@ -998,8 +996,9 @@
                     clearInterval(interval);
                     refreshStickyBannerAd();
                     showStickyBannerAd();
-                    rewardedAd();
-                    // replayAd();
+                    // rewardedAd();
+                    loadReplayAd();
+                    
                     sendCustomAnalyticsEvent("game_load", {});
                     console.log("game_load event added");
 
