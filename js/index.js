@@ -817,9 +817,11 @@ function showWinScreen() {
         )
         .then((response) => response.data)
         .then((data) => {
-            overallRank = data.overall[3].rank;
-            bestRank =
-                data.daily[3].rank > bestRank ? data.daily[3].rank : bestRank;
+            if (data && data.daily && data.daily.length > 3) {
+                overallRank = data.overall[3].rank;
+                bestRank = data.daily[3].rank > bestRank ? data.daily[3].rank : bestRank;
+            }
+            
             fillStats();
             updateLocalStorage();
             document
@@ -829,7 +831,7 @@ function showWinScreen() {
                         <div class="ranking-grid">
                             <span class="rank-number">${index + 1}</span>
                             <span class="rank-name">${
-                                index + 1 === data.daily[3].rank
+                                userID === data.daily[index].userId
                                     ? you
                                     : rank.concat(" ").concat(index + 1)
                             }</span>
@@ -845,7 +847,7 @@ function showWinScreen() {
                         <div class="ranking-grid">
                             <span class="rank-number">${index + 1}</span>
                             <span class="rank-name">${
-                                index + 1 === data.overall[3].rank
+                                userID === data.overall[index].userId
                                     ? you
                                     : rank.concat(" ").concat(index + 1)
                             }</span>
@@ -855,18 +857,20 @@ function showWinScreen() {
                         </div>`;
                 });
 
-            document.querySelector(
-                ".ranking-self[data-rank-type=daily] > .ranking-grid > [data-field=rank-self]"
-            ).innerHTML = data.daily[3].rank;
-            document.querySelector(
-                ".ranking-self[data-rank-type=all-time] > .ranking-grid > [data-field=rank-self]"
-            ).innerHTML = data.overall[3].rank;
-            document.querySelector(
-                "[data-rank-type=daily] > .ranking-grid > [data-field=score-self]"
-            ).innerHTML = data.daily[3].score;
-            document.querySelector(
-                "[data-rank-type=all-time] > .ranking-grid > [data-field=score-self]"
-            ).innerHTML = data.overall[3].score;
+            if (data && data.daily && data.daily.length > 3) {
+                document.querySelector(
+                    ".ranking-self[data-rank-type=daily] > .ranking-grid > [data-field=rank-self]"
+                ).innerHTML = data.daily[3].rank;
+                document.querySelector(
+                    ".ranking-self[data-rank-type=all-time] > .ranking-grid > [data-field=rank-self]"
+                ).innerHTML = data.overall[3].rank;
+                document.querySelector(
+                    "[data-rank-type=daily] > .ranking-grid > [data-field=score-self]"
+                ).innerHTML = data.daily[3].score;
+                document.querySelector(
+                    "[data-rank-type=all-time] > .ranking-grid > [data-field=score-self]"
+                ).innerHTML = data.overall[3].score;
+            }
             document.querySelector(".ranking-animation").style.display = "none";
         })
         .catch((err) => console.error(err));
