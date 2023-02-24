@@ -105,56 +105,98 @@ function rewardedCallbacks(obj) {
 
 function runOnAdClosed() {
     console.log('replay runOnAdClosed ', _triggerReason);
-    if (!isRewardGranted && isRewardedAdClosedByUser) {
-    // call function for not earning reward (failure case)
-        _triggerReason = ''
-        rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
-        console.log('replay retry game rewardInstance added new ');
-    } else {
-        if (_triggerReason === 'replay') {
-            console.log('replay TryAgain ',isRewardGranted, isRewardedAdClosedByUser);
+    if (_triggerReason === "replay" || _triggerReason === "Retry") {
+        console.log('replay ', _triggerReason ,isRewardGranted, isRewardedAdClosedByUser);
+        if (_triggerReason === "replay") {
             initBoard();
             closeModal("lose-modal");
-            // call function for replay
-            _triggerReason = ''
-            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
             console.log('replay retry game rewardInstance added new ');
-        } else if (_triggerReason === 'Reward') {
-            console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
-            document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
-            closeModal("lose-modal");
-            // call function for earned reward  (success case)
-            _triggerReason = ''
-            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
-            console.log('replay rewardInstance added new ');
-        } else if (_triggerReason == 'Retry') {
-            console.log('replay Retry ',isRewardGranted, isRewardedAdClosedByUser);
+        } else if (_triggerReason === "Retry") {
             level--;
             initBoard();
             closeModal("win-modal");
-            // call function for Retry
-            _triggerReason = ''
-            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
             console.log('replay Retry rewardInstance added new ');
-        } else if (_triggerReason == 'NextGame') {
-            console.log('replay NextGame ',isRewardGranted, isRewardedAdClosedByUser);
-            initBoard();
-            closeModal("win-modal");
-
-            sendCustomAnalyticsEvent('game_level', {level: level});
-            console.log("game_level event added");
-            
-            // call function for NextGame
-            _triggerReason = ''
-            rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
-            console.log('replay NextGame rewardInstance added new ');
         }
+        adCount = 0;
+        loadReplayAd();
+    } else if (_triggerReason === 'Reward') {
+        console.log('replay Reward ',isRewardGranted, isRewardedAdClosedByUser);
+        console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
+        document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+        closeModal("lose-modal");
+        // call function for earned reward  (success case)
+        _triggerReason = ''
+        rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+        console.log('replay rewardInstance added new ');
+    }  else if (_triggerReason == 'NextGame') {
+        console.log('replay NextGame ',isRewardGranted, isRewardedAdClosedByUser);
+        initBoard();
+        closeModal("win-modal");
+
+        sendCustomAnalyticsEvent('game_level', {level: level});
+        console.log("game_level event added");
+        
+        adCount = 0;
+
+        // call function for NextGame
+        _triggerReason = ''
+        rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+        console.log('replay NextGame rewardInstance added new ');
     }
   }
 
+// function runOnAdClosedOld() {
+//     console.log('replay runOnAdClosed ', _triggerReason);
+//     if (!isRewardGranted && isRewardedAdClosedByUser) {
+//     // call function for not earning reward (failure case)
+//         _triggerReason = ''
+//         rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+//         console.log('replay retry game rewardInstance added new ');
+//     } else {
+//         if (_triggerReason === 'replay') {
+//             console.log('replay TryAgain ',isRewardGranted, isRewardedAdClosedByUser);
+//             initBoard();
+//             closeModal("lose-modal");
+//             // call function for replay
+//             _triggerReason = ''
+//             rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+//             console.log('replay retry game rewardInstance added new ');
+//         } else if (_triggerReason === 'Reward') {
+//             console.log('replay AddMoves ',isRewardGranted, isRewardedAdClosedByUser);
+//             document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+//             closeModal("lose-modal");
+//             // call function for earned reward  (success case)
+//             _triggerReason = ''
+//             rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+//             console.log('replay rewardInstance added new ');
+//         } else if (_triggerReason == 'Retry') {
+//             console.log('replay Retry ',isRewardGranted, isRewardedAdClosedByUser);
+//             level--;
+//             initBoard();
+//             closeModal("win-modal");
+//             // call function for Retry
+//             _triggerReason = ''
+//             rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+//             console.log('replay Retry rewardInstance added new ');
+//         } else if (_triggerReason == 'NextGame') {
+//             console.log('replay NextGame ',isRewardGranted, isRewardedAdClosedByUser);
+//             initBoard();
+//             closeModal("win-modal");
+
+//             sendCustomAnalyticsEvent('game_level', {level: level});
+//             console.log("game_level event added");
+            
+//             // call function for NextGame
+//             _triggerReason = ''
+//             rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(rewardObj, rewardedCallbacks);
+//             console.log('replay NextGame rewardInstance added new ');
+//         }
+//     }
+//   }
+
 
   function replayEvent() { 
-    _triggerReason = 'replay'
+    // _triggerReason = 'replay'
     if(!is_replay_noFill){
         window.GlanceGamingAdInterface.showRewarededAd(replayInstance);
     }else{

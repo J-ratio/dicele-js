@@ -922,7 +922,7 @@ document.querySelector(".global-ranking").addEventListener("click", () => {
 
 document.querySelector(".retry-button").addEventListener("click", () => {
     _triggerReason = "Retry";
-    rewardEvent();
+    replayEvent();
     // level--;
     // initBoard();
     // closeModal("win-modal");
@@ -1022,7 +1022,7 @@ document.querySelector(".add-moves-button").addEventListener("click", () => {
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
     _triggerReason = "replay";
-    rewardEvent();
+    replayEvent();
 
     sendCustomAnalyticsEvent("game_replay", {
         level: level,
