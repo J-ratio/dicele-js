@@ -1020,6 +1020,7 @@ body {
 }
 
 .share-whatsapp-button {
+    display: none;
     width: 95%;
     background-color: #26d367;
     border-bottom: 4px solid #1eb136;

@@ -200,11 +200,17 @@ function runOnAdClosed() {
         if (_triggerReason === "replay") {
             initBoard();
             closeModal("lose-modal");
+            sendCustomAnalyticsEvent("game_end", { level: level, score: highScore, highScore: highScore, });
+            console.log("game_end event added");
+        
             console.log('replay retry game rewardInstance added new ');
         } else if (_triggerReason === "Retry") {
             level--;
             initBoard();
             closeModal("win-modal");
+            sendCustomAnalyticsEvent("game_end", { level: level, score: highScore, highScore: highScore, });
+            console.log("game_end event added");
+        
             console.log('replay Retry rewardInstance added new ');
         }
         adCount = 0;

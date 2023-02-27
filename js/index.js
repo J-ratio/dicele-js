@@ -525,8 +525,8 @@ if (newUser) {
     initBoard();
     openModal("help-modal");
     tutorial = true;
-    sendCustomAnalyticsEvent("game_start", {});
-    console.log("game_load event added");
+    // sendCustomAnalyticsEvent("game_start", {});
+    // console.log("game_load event added");
 } else {
     document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
@@ -876,12 +876,12 @@ function showWinScreen() {
         .catch((err) => console.error(err));
     openModal("win-modal");
 
-    sendCustomAnalyticsEvent("game_end", {
-        level: level,
-        score: score,
-        highScore: highScore,
-    });
-    console.log("game_end event added");
+    // sendCustomAnalyticsEvent("game_end", {
+    //     level: level,
+    //     score: score,
+    //     highScore: highScore,
+    // });
+    // console.log("game_end event added");
 
     level++;
     initBoard();
@@ -892,12 +892,12 @@ function showWinScreen() {
 
 function showLoseScreen() {
     openModal("lose-modal");
-    sendCustomAnalyticsEvent("game_end", {
-        level: level,
-        score: score,
-        highScore: highScore,
-    });
-    console.log("game_end event added");
+    // sendCustomAnalyticsEvent("game_end", {
+    //     level: level,
+    //     score: score,
+    //     highScore: highScore,
+    // });
+    // console.log("game_end event added");
 }
 
 // Win modal event listeners
@@ -940,8 +940,8 @@ document.querySelector(".next-button").addEventListener("click", () => {
     rewardEvent();
     // initBoard();
     // closeModal("win-modal");
-    sendCustomAnalyticsEvent("game_start", {});
-    console.log("game_start event added");
+    // sendCustomAnalyticsEvent("game_start", {});
+    // console.log("game_start event added");
 });
 
 document
@@ -1012,12 +1012,12 @@ document.querySelector(".add-moves-button").addEventListener("click", () => {
     // updateLocalStorage();
     // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     // closeModal("lose-modal");
-    sendCustomAnalyticsEvent("game_replay", {
-        level: level,
-        score: 0,
-        highScore: highScore,
-    });
-    console.log("game_replay event added");
+    // sendCustomAnalyticsEvent("game_replay", {
+    //     level: level,
+    //     score: 0,
+    //     highScore: highScore,
+    // });
+    // console.log("game_replay event added");
 });
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
