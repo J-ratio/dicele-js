@@ -448,7 +448,7 @@ let {
 let matches;
 let highScore = 0;
 let solution = Array.from(SolutionArr[level]);
-writeBoard();
+// writeBoard();
 startTime = Date.now();
 updateLocalStorage();
 
@@ -484,7 +484,7 @@ function fillArchive() {
                                     src="/images/star.png"
                                     class="archive-list-item-right-icon"
                                 />`
-                                    .repeat(level.starsCount)
+                                    .repeat(level.starsCount > 0 ? level.starsCount : 0)
                                     .concat(
                                         `<img
                                     src="/images/no_star.png"
@@ -506,6 +506,7 @@ function fillArchive() {
 }
 
 function initBoard() {
+    console.log('initBoard');
     moves = 21;
     adCount = 0;
     state = Array.from(SpawnArr[level]);
@@ -515,33 +516,37 @@ function initBoard() {
     updateLocalStorage();
     writeBoard();
     document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+    console.log('game-number  ', level + 1);
     document.querySelector(".game-number").innerHTML = `${level + 1}`;
     updateSums();
     fillArchive();
     fillStats();
 }
 
-if (newUser) {
-    initBoard();
-    openModal("help-modal");
-    tutorial = true;
-    // sendCustomAnalyticsEvent("game_start", {});
-    // console.log("game_load event added");
-} else {
-    document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
-    document.querySelector(".game-number").innerHTML = `${level + 1}`;
-    updateSums();
-    fillArchive();
-    fillStats();
-    checkMatched();
-
-    if (matches === 21) {
-        updateLocalStorage();
-        showWinScreen();
-    }
-
-    if (moves === 0 || moves === -5 * adCount) {
-        showLoseScreen();
+function startGameScreen() {
+    if (newUser) {
+        initBoard();
+        openModal("help-modal");
+        tutorial = true;
+        // sendCustomAnalyticsEvent("game_start", {});
+        // console.log("game_load event added");
+    } else {
+        writeBoard();
+        
+        console.log('game-number  ', level + 1);
+        document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
+        document.querySelector(".game-number").innerHTML = `${level + 1}`;
+        updateSums();
+        fillArchive();
+        fillStats();
+        checkMatched();
+    
+        if (matches === 21) {
+            updateLocalStorage();
+            showWinScreen();
+        } else if (moves === 0 || moves <= -5 * adCount) {
+            showLoseScreen();
+        }
     }
 }
 
@@ -647,6 +652,7 @@ function check(index, solution, state) {
 }
 
 function writeBoard() {
+    console.log('writeBoard ');
     Array.from(board.children).forEach((dice, index) => {
         if (state[index] !== 6) {
             dice.setAttribute("data-value", state[index]);
@@ -662,6 +668,14 @@ function writeBoard() {
             dice.style = "";
         }
     });
+
+    checkMatched();
+    if (matches === 21) {
+        updateLocalStorage();
+        // showWinScreen();
+    } else if (moves === 0 || moves <= -5 * adCount) {
+        showLoseScreen();
+    }
 }
 
 function checkMatched() {
@@ -677,14 +691,14 @@ function checkMatched() {
 var animDice1;
 var animDice2;
 
-$(function () {
-    animDice1.on("animationend", function () {
-        animDice1.classList.removeClass("animate");
-    });
-    animDice2.on("animationend", function () {
-        animDice1.classList.removeClass("animate");
-    });
-});
+// $(function () {
+//     animDice1.on("animationend", function () {
+//         animDice1.classList.removeClass("animate");
+//     });
+//     animDice2.on("animationend", function () {
+//         animDice1.classList.removeClass("animate");
+//     });
+// });
 
 var sortable = Sortable.create(board, {
     swap: true,
@@ -721,9 +735,7 @@ var sortable = Sortable.create(board, {
         if (matches === 21) {
             updateLocalStorage();
             showWinScreen();
-        }
-
-        if (moves === 0 || moves === -5 * adCount) {
+        } else if (moves === 0 || moves <= -5 * adCount) {
             showLoseScreen();
         }
 
@@ -740,6 +752,9 @@ if (matches === 21) {
 }
 
 function formatTime() {
+    console.log('playTime ', playTime);
+    playTime = Math.floor((Date.now() - startTime) / 1000);
+    console.log('playTime ', playTime);
     return `${String(Math.floor(playTime / 60)).padStart(2, "0")}m ${String(
         playTime % 60
     ).padStart(2, "0")}s`;
@@ -765,7 +780,7 @@ function showWinScreen() {
             );
         } else {
             stars = `<img src="/images/star.png" class="finish-star" />`
-                .repeat(moves)
+                .repeat(moves > 0 ? moves : 0)
                 .concat(
                     `<img src="/images/no_star.png" class="finish-star" />`.repeat(
                         5 - moves
@@ -802,79 +817,80 @@ function showWinScreen() {
         updateLocalStorage();
     }
     document.querySelector("[data-field=score]").innerHTML = score;
-    axios
-        .post(`${backendURL}/DiceleCompleted/dicelecompleted`, {
-            userId: userID,
-            diceleId: level,
-            score,
-            movesTaken: moves > 0 ? 21 - moves : 21,
-            timeTaken: playTime,
-        })
-        .then(() =>
-            axios.post(`${backendURL}/DiceleCompleted/diceleleaderboards`, {
-                userId: userID,
-            })
-        )
-        .then((response) => response.data)
-        .then((data) => {
-            if (data && data.daily && data.daily.length > 3) {
-                overallRank = data.overall[3].rank;
-                bestRank = data.daily[3].rank > bestRank ? data.daily[3].rank : bestRank;
-            }
+    // axios
+    //     .post(`${backendURL}/DiceleCompleted/dicelecompleted`, {
+    //         userId: userID,
+    //         diceleId: level,
+    //         score,
+    //         movesTaken: moves > 0 ? 21 - moves : 21,
+    //         timeTaken: playTime,
+    //     })
+    //     .then(() =>
+    //         axios.post(`${backendURL}/DiceleCompleted/diceleleaderboards`, {
+    //             userId: userID,
+    //         })
+    //     )
+    //     .then((response) => response.data)
+    //     .then((data) => {
+    //         if (data && data.daily && data.daily.length > 3) {
+    //             overallRank = data.overall[3].rank;
+    //             bestRank = data.daily[3].rank > bestRank ? data.daily[3].rank : bestRank;
+    //         }
             
-            fillStats();
-            updateLocalStorage();
-            document
-                .querySelectorAll(".ranking-entry[data-rank-type=daily]")
-                .forEach((ele, index) => {
-                    ele.innerHTML = `
-                        <div class="ranking-grid">
-                            <span class="rank-number">${index + 1}</span>
-                            <span class="rank-name">${
-                                userID === data.daily[index].userId
-                                    ? you
-                                    : rank.concat(" ").concat(index + 1)
-                            }</span>
-                            <span class="rank-score">${
-                                data.daily[index].score
-                            }</span>
-                        </div>`;
-                });
-            document
-                .querySelectorAll(".ranking-entry[data-rank-type=all-time]")
-                .forEach((ele, index) => {
-                    ele.innerHTML = `
-                        <div class="ranking-grid">
-                            <span class="rank-number">${index + 1}</span>
-                            <span class="rank-name">${
-                                userID === data.overall[index].userId
-                                    ? you
-                                    : rank.concat(" ").concat(index + 1)
-                            }</span>
-                            <span class="rank-score">${
-                                data.overall[index].score
-                            }</span>
-                        </div>`;
-                });
+    //         fillStats();
+    //         updateLocalStorage();
+    //         document
+    //             .querySelectorAll(".ranking-entry[data-rank-type=daily]")
+    //             .forEach((ele, index) => {
+    //                 ele.innerHTML = `
+    //                     <div class="ranking-grid">
+    //                         <span class="rank-number">${index + 1}</span>
+    //                         <span class="rank-name">${
+    //                             userID === data.daily[index].userId
+    //                                 ? you
+    //                                 : rank.concat(" ").concat(index + 1)
+    //                         }</span>
+    //                         <span class="rank-score">${
+    //                             data.daily[index].score
+    //                         }</span>
+    //                     </div>`;
+    //             });
+    //         document
+    //             .querySelectorAll(".ranking-entry[data-rank-type=all-time]")
+    //             .forEach((ele, index) => {
+    //                 ele.innerHTML = `
+    //                     <div class="ranking-grid">
+    //                         <span class="rank-number">${index + 1}</span>
+    //                         <span class="rank-name">${
+    //                             userID === data.overall[index].userId
+    //                                 ? you
+    //                                 : rank.concat(" ").concat(index + 1)
+    //                         }</span>
+    //                         <span class="rank-score">${
+    //                             data.overall[index].score
+    //                         }</span>
+    //                     </div>`;
+    //             });
 
-            if (data && data.daily && data.daily.length > 3) {
-                document.querySelector(
-                    ".ranking-self[data-rank-type=daily] > .ranking-grid > [data-field=rank-self]"
-                ).innerHTML = data.daily[3].rank;
-                document.querySelector(
-                    ".ranking-self[data-rank-type=all-time] > .ranking-grid > [data-field=rank-self]"
-                ).innerHTML = data.overall[3].rank;
-                document.querySelector(
-                    "[data-rank-type=daily] > .ranking-grid > [data-field=score-self]"
-                ).innerHTML = data.daily[3].score;
-                document.querySelector(
-                    "[data-rank-type=all-time] > .ranking-grid > [data-field=score-self]"
-                ).innerHTML = data.overall[3].score;
-            }
-            document.querySelector(".ranking-animation").style.display = "none";
-        })
-        .catch((err) => console.error(err));
+    //         if (data && data.daily && data.daily.length > 3) {
+    //             document.querySelector(
+    //                 ".ranking-self[data-rank-type=daily] > .ranking-grid > [data-field=rank-self]"
+    //             ).innerHTML = data.daily[3].rank;
+    //             document.querySelector(
+    //                 ".ranking-self[data-rank-type=all-time] > .ranking-grid > [data-field=rank-self]"
+    //             ).innerHTML = data.overall[3].rank;
+    //             document.querySelector(
+    //                 "[data-rank-type=daily] > .ranking-grid > [data-field=score-self]"
+    //             ).innerHTML = data.daily[3].score;
+    //             document.querySelector(
+    //                 "[data-rank-type=all-time] > .ranking-grid > [data-field=score-self]"
+    //             ).innerHTML = data.overall[3].score;
+    //         }
+    //         document.querySelector(".ranking-animation").style.display = "none";
+    //     })
+    //     .catch((err) => console.error(err));
     openModal("win-modal");
+    // document.querySelector(".ranking-animation").style.display = "none";
 
     // sendCustomAnalyticsEvent("game_end", {
     //     level: level,
@@ -902,23 +918,23 @@ function showLoseScreen() {
 
 // Win modal event listeners
 
-document.querySelector(".level-ranking").addEventListener("click", () => {
-    document
-        .querySelectorAll("[data-rank-type=daily]")
-        .forEach((entry) => (entry.style.display = "flex"));
-    document
-        .querySelectorAll("[data-rank-type=all-time]")
-        .forEach((entry) => (entry.style.display = "none"));
-});
+// document.querySelector(".level-ranking").addEventListener("click", () => {
+//     document
+//         .querySelectorAll("[data-rank-type=daily]")
+//         .forEach((entry) => (entry.style.display = "flex"));
+//     document
+//         .querySelectorAll("[data-rank-type=all-time]")
+//         .forEach((entry) => (entry.style.display = "none"));
+// });
 
-document.querySelector(".global-ranking").addEventListener("click", () => {
-    document
-        .querySelectorAll("[data-rank-type=all-time]")
-        .forEach((entry) => (entry.style.display = "flex"));
-    document
-        .querySelectorAll("[data-rank-type=daily]")
-        .forEach((entry) => (entry.style.display = "none"));
-});
+// document.querySelector(".global-ranking").addEventListener("click", () => {
+//     document
+//         .querySelectorAll("[data-rank-type=all-time]")
+//         .forEach((entry) => (entry.style.display = "flex"));
+//     document
+//         .querySelectorAll("[data-rank-type=daily]")
+//         .forEach((entry) => (entry.style.display = "none"));
+// });
 
 document.querySelector(".retry-button").addEventListener("click", () => {
     _triggerReason = "Retry";
@@ -927,12 +943,10 @@ document.querySelector(".retry-button").addEventListener("click", () => {
     // initBoard();
     // closeModal("win-modal");
 
-    sendCustomAnalyticsEvent("game_replay", {
-        level: level,
-        score: 0,
-        highScore: highScore,
-    });
+    sendCustomAnalyticsEvent("game_replay", {level: level + 1,score: 0,highScore: highScore,});
     console.log("game_replay event added");
+    sendCustomAnalyticsEvent('game_level', {level: level + 1});
+    console.log("game_level event added");
 });
 
 document.querySelector(".next-button").addEventListener("click", () => {
@@ -940,8 +954,6 @@ document.querySelector(".next-button").addEventListener("click", () => {
     rewardEvent();
     // initBoard();
     // closeModal("win-modal");
-    // sendCustomAnalyticsEvent("game_start", {});
-    // console.log("game_start event added");
 });
 
 document
@@ -1012,25 +1024,20 @@ document.querySelector(".add-moves-button").addEventListener("click", () => {
     // updateLocalStorage();
     // document.querySelector(".moves-number").innerHTML = moves + 5 * adCount;
     // closeModal("lose-modal");
-    // sendCustomAnalyticsEvent("game_replay", {
-    //     level: level,
-    //     score: 0,
-    //     highScore: highScore,
-    // });
-    // console.log("game_replay event added");
 });
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
+    sendCustomAnalyticsEvent("game_end", {level: level, score: score, highScore: highScore,});
+    console.log("game_end event added");
+
     _triggerReason = "replay";
     replayEvent();
 
-    sendCustomAnalyticsEvent("game_replay", {
-        level: level,
-        score: 0,
-        highScore: highScore,
-    });
+    sendCustomAnalyticsEvent("game_replay", {level: level + 1, score: 0, highScore: highScore, });
     console.log("game_replay event added");
 
+    sendCustomAnalyticsEvent('game_level', {level: level + 1});
+    console.log("game_level event added");
     // initBoard();
 });
 

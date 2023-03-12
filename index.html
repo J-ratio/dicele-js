@@ -113,11 +113,11 @@
         </script>
 
         <!-- Addsense tag -->
-        <script
+        <!-- <script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4135738881392273"
             crossorigin="anonymous"
-        ></script>
+        ></script> -->
 
         <!-- Axios tag -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -141,9 +141,98 @@
 
         <!-- Glance file -->
         <script type="text/javascript" src="/js/ads.js"></script>
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+            
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyChJ0U4aZaZ8ZHDAqmL7xnnkyckf2VocQE",
+                authDomain: "dicele-eb0fc.firebaseapp.com",
+                projectId: "dicele-eb0fc",
+                storageBucket: "dicele-eb0fc.appspot.com",
+                messagingSenderId: "34274103834",
+                appId: "1:34274103834:web:4fca541d3712a8bc39f7a3"
+            };
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+        </script>
     </head>
 
     <body>
+        <script>
+            function rewardEvent() {
+                if (!is_rewarded_noFill) {
+                    window.GlanceGamingAdInterface.showRewarededAd(
+                        rewardInstance
+                    );
+                } else {
+                    runOnAdClosed();
+                }
+            }
+
+            function rewardedAd() {
+                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
+                    rewardObj,
+                    rewardedCallbacks
+                );
+                console.log("Loading reward Ads");
+            }
+
+            function loadReplayAd() {
+                // is_replay_noFill = true;
+                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+                console.log("Loading Replay Ads");
+            }
+        </script>
+
+        <script>
+            addLoader();
+            var progress, date, interval;
+            // wait until DOM has been loaded to perform DOM Manipulations
+            document.addEventListener("DOMContentLoaded", function () {
+                date = Date.now(); //current timestamp since UNIX epoch
+
+                //get a reference to the progress element using its id attribute
+                progress = document.getElementById("loader");
+                interval = setInterval(updateProgress, 1000);
+            });
+
+            function updateProgress() {
+                // msg.innerHTML = 'begin updateProgress() - progress.value = '+progress.value + "<br>" + msg.innerHTML;
+                progressBar(null, progress.value);
+                if (progress.value >= 100) {
+
+                    app_area = document.getElementById("app-area");
+                    app_area.style.display = "block"
+                    //stop running this function after value reaches 100 (percent)
+                    clearInterval(interval);
+                    refreshStickyBannerAd();
+                    // showStickyBannerAd();
+                    rewardedAd();
+                    loadReplayAd();
+                    
+                    sendCustomAnalyticsEvent("game_load", {});
+                    console.log("game_load event added");
+
+                    sendCustomAnalyticsEvent("game_start", {});
+                    console.log("game_start event added");
+
+                    sendCustomAnalyticsEvent('game_level', {level: level + 1});
+                    console.log("game_level event added");
+
+                }
+                var newDate = Date.now();
+                var milliseconds = newDate - date;
+
+                var seconds = Math.floor(milliseconds / 1000);
+                loader.value += seconds * 5;
+            }
+        </script>
+
         <img src="images/tutorial hand.svg" class="tut-hand" />
         <div class="box-modal">
             <h6 class="tutMsg">SWAP DICE TO FIND ITS CORRECT PLACE</h6>
@@ -170,7 +259,7 @@
             <img src="/images/warning-6.svg" alt="" />
         </div>
 
-        <div class="center">
+        <div class="center" id="app-area" style="display: none;">
             <!-- Sidebar -->
             <div class="w3-sidebar w3-bar-block w3-animate-left" id="sidebar">
                 <div class="sidebar-heading">
@@ -610,7 +699,7 @@
                             >
                         </div>
                     </div>
-                    <div class="ranking-container">
+                    <!-- <div class="ranking-container">
                         <div class="ranking-animation">
                             <svg
                                 class="spinner"
@@ -739,7 +828,7 @@
                                 >
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="buttons-container">
                         <div class="retry-button">
                             <img
@@ -770,6 +859,10 @@
                         <div class="banner-right"></div>
                     </div>
                     <div class="moves-container">
+                        <!-- <span class="game-title">
+                            <span class="game-mode">Dicele Level</span>
+                            <span class="game-number">1</span>
+                        </span> -->
                         <span
                             class="lose-moves-left"
                             data-field="lose-moves-left"
@@ -808,7 +901,7 @@
                 <div class="square-outer">
                     <span class="game-title">
                         <span class="game-mode">Dicele Level</span>
-                        <span class="game-number">00</span>
+                        <span class="game-number">1</span>
                     </span>
                     <div class="square" id="game">
                         <div id="board">
@@ -867,30 +960,6 @@
                     </span>
                     <div class="game-ad-box"></div>
                 </div>
-                <!-- <div class="game-ad-box">
-                    <button onclick="showBumperAd()">
-                        Click for Bumper Ad
-                    </button>
-    
-                    <button onclick="stickyBannerAd()">
-                        Click for Sticky Ad
-                    </button>
-    
-                    <button onclick="showLeaderboardAd()">
-                        Click for Banner Ad
-                    </button>
-    
-                    <button onclick="rewardedAd()">
-                        Click for Rewarded Ad
-                    </button>
-                    <button onclick="rewardEvent()">
-                        Click display Rewarded Ad
-                    </button>
-                    <button onclick="replayEvent()">
-                        Click display Replay Ad
-                    </button>
-                    
-                </div> -->
             </div>
         </div>
 
@@ -909,106 +978,7 @@
         <script src="/js/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
-        <script>
-            function rewardEvent() {
-                if (!is_rewarded_noFill) {
-                    window.GlanceGamingAdInterface.showRewarededAd(
-                        rewardInstance
-                    );
-                } else {
-                    runOnAdClosed();
-                }
-            }
 
-            function addBannerAd() {
-                $("#bannerOverlay").css("display", "flex");
-                var stickyBannerDiv = `<div id="banner-ad">
-                       </div>`;
-                $("#bannerOverlay").append($(stickyBannerDiv));
-                console.log("stickyBannerDiv added...");
-            }
-
-            function stickyBannerAd() {
-                addBannerAd();
-                stickyBannerInstance =
-                    window.GlanceGamingAdInterface.showStickyBannerAd(
-                        StickyObj,
-                        bannerCallbacks
-                    );
-                console.log("showStickyBannerAd");
-                // console.log("stickyObject", stickyBannerInstance);
-            }
-
-            function addLeaderboard() {
-                var leaderBoardDiv = `<div id="div-gpt-ad-1">
-                               </div>`;
-                $("body").append($(leaderBoardDiv));
-                console.log("leaderboardDiv added...");
-            }
-
-            function showLeaderboardAd() {
-                addLeaderboard();
-                LBBannerInstance = window.GlanceGamingAdInterface.showBannerAd(
-                    LBBannerObj,
-                    bannerCallbacks
-                );
-                // $("body").append($(LBBannerInstance));
-                console.log("showLeaderboard");
-            }
-
-            function rewardedAd() {
-                rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-                    rewardObj,
-                    rewardedCallbacks
-                );
-                console.log("Loading reward Ads");
-            }
-
-            function loadReplayAd() {
-                // is_replay_noFill = true;
-                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
-                console.log("Loading Replay Ads");
-            }
-        </script>
-
-        <script>
-            addLoader();
-            var progress, date, interval;
-            // wait until DOM has been loaded to perform DOM Manipulations
-            document.addEventListener("DOMContentLoaded", function () {
-                date = Date.now(); //current timestamp since UNIX epoch
-
-                //get a reference to the progress element using its id attribute
-                progress = document.getElementById("loader");
-                interval = setInterval(updateProgress, 1000);
-            });
-
-            function updateProgress() {
-                // msg.innerHTML = 'begin updateProgress() - progress.value = '+progress.value + "<br>" + msg.innerHTML;
-                progressBar(null, progress.value);
-                if (progress.value >= 100) {
-                    //stop running this function after value reaches 100 (percent)
-                    clearInterval(interval);
-                    refreshStickyBannerAd();
-                    // showStickyBannerAd();
-                    rewardedAd();
-                    loadReplayAd();
-                    
-                    sendCustomAnalyticsEvent("game_load", {});
-                    console.log("game_load event added");
-
-                    sendCustomAnalyticsEvent("game_start", {});
-                    console.log("game_start event added");
-
-                    sendCustomAnalyticsEvent('game_level', {level: level});
-                    console.log("game_level event added");
-                }
-                var newDate = Date.now();
-                var milliseconds = newDate - date;
-
-                var seconds = Math.floor(milliseconds / 1000);
-                loader.value += seconds * 5;
-            }
-        </script>
+        <script>startGameScreen();</script>
     </body>
 </html>

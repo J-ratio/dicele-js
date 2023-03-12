@@ -114,11 +114,11 @@
         </script>
 
         <!-- Addsense tag -->
-        <script
+        <!-- <script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4135738881392273"
             crossorigin="anonymous"
-        ></script>
+        ></script> -->
 
         <!-- Axios tag -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -172,7 +172,7 @@
             <img src="/images/warning-6.svg" alt="" />
         </div>
 
-        <div class="center">
+        <div class="center" id="app-area" style="display: none;">
             <!-- Sidebar -->
             <div class="w3-sidebar w3-bar-block w3-animate-left" id="sidebar">
                 <div class="sidebar-heading">
@@ -614,7 +614,7 @@
                             >
                         </div>
                     </div>
-                    <div class="ranking-container">
+                    <!-- <div class="ranking-container">
                         <div class="ranking-animation">
                             <svg
                                 class="spinner"
@@ -651,7 +651,6 @@
                         <div class="ranking-titles">
                             <div class="ranking-grid">
                                 <span class="ranking-title">ランク</span>
-                                <!-- TODO: Translate -->
                                 <span class="ranking-title">PLAYER</span>
                                 <span class="ranking-title">スコア</span>
                             </div>
@@ -727,7 +726,6 @@
                                 <span class="rank-number" data-field="rank-self"
                                     >45</span
                                 >
-                                <!-- TODO: Translate -->
                                 <span class="rank-name">YOU</span>
                                 <span class="rank-score" data-field="score-self"
                                     >5474</span
@@ -739,14 +737,13 @@
                                 <span class="rank-number" data-field="rank-self"
                                     >45</span
                                 >
-                                <!-- TODO: Translate -->
                                 <span class="rank-name">YOU</span>
                                 <span class="rank-score" data-field="score-self"
                                     >5474</span
                                 >
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="buttons-container">
                         <div class="retry-button">
                             <img
@@ -817,7 +814,7 @@
                     <span class="game-title">
                         <!-- TODO: Translate -->
                         <span class="game-mode">Dicele Level</span>
-                        <span class="game-number">00</span>
+                        <span class="game-number">1</span>
                     </span>
                     <div class="square" id="game">
                         <div id="board">
@@ -876,30 +873,6 @@
                     </span>
                     <div class="game-ad-box"></div>
                 </div>
-                <!-- <div class="game-ad-box">
-                    <button onclick="showBumperAd()">
-                        Click for Bumper Ad
-                    </button>
-    
-                    <button onclick="stickyBannerAd()">
-                        Click for Sticky Ad
-                    </button>
-    
-                    <button onclick="showLeaderboardAd()">
-                        Click for Banner Ad
-                    </button>
-    
-                    <button onclick="rewardedAd()">
-                        Click for Rewarded Ad
-                    </button>
-                    <button onclick="rewardEvent()">
-                        Click display Rewarded Ad
-                    </button>
-                    <button onclick="replayEvent()">
-                        Click display Replay Ad
-                    </button>
-                    
-                </div> -->
             </div>
         </div>
 
@@ -919,6 +892,7 @@
         <script src="/js/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
         <script>
             function rewardEvent() {
                 if (!is_rewarded_noFill) {
@@ -930,62 +904,19 @@
                 }
             }
 
-            function addBannerAd() {
-                $("#bannerOverlay").css("display", "flex");
-                var stickyBannerDiv = `<div id="banner-ad">
-                       </div>`;
-                $("#bannerOverlay").append($(stickyBannerDiv));
-                console.log("stickyBannerDiv added...");
-            }
-
-            function stickyBannerAd() {
-                addBannerAd();
-                stickyBannerInstance =
-                    window.GlanceGamingAdInterface.showStickyBannerAd(
-                        StickyObj,
-                        bannerCallbacks
-                    );
-                console.log("showStickyBannerAd");
-                // console.log("stickyObject", stickyBannerInstance);
-            }
-
-            function addLeaderboard() {
-                var leaderBoardDiv = `<div id="div-gpt-ad-1">
-                               </div>`;
-                $("body").append($(leaderBoardDiv));
-                console.log("leaderboardDiv added...");
-            }
-
-            function showLeaderboardAd() {
-                addLeaderboard();
-                LBBannerInstance = window.GlanceGamingAdInterface.showBannerAd(
-                    LBBannerObj,
-                    bannerCallbacks
-                );
-                // $("body").append($(LBBannerInstance));
-                console.log("showLeaderboard");
-            }
-
             function rewardedAd() {
                 rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
                     rewardObj,
                     rewardedCallbacks
                 );
-                console.log("replay Ads");
-                // replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-                //     replayObj,
-                //     rewardedCallbacks
-                // );
-                // console.log("replay retry Ads");
+                console.log("Loading reward Ads");
             }
 
-            // function replayAd() {
-            //     rewardInstance = window.GlanceGamingAdInterface.loadRewardedAd(
-            //         replayObj,
-            //         rewardedCallbacks
-            //     );
-            //     console.log("replay retry game Ads");
-            // }
+            function loadReplayAd() {
+                // is_replay_noFill = true;
+                replayInstance = window.GlanceGamingAdInterface.loadRewardedAd(replayObj, rewardedCallbacks);
+                console.log("Loading Replay Ads");
+            }
         </script>
 
         <script>
@@ -1004,20 +935,25 @@
                 // msg.innerHTML = 'begin updateProgress() - progress.value = '+progress.value + "<br>" + msg.innerHTML;
                 progressBar(null, progress.value);
                 if (progress.value >= 100) {
+
+                    app_area = document.getElementById("app-area");
+                    app_area.style.display = "block"
                     //stop running this function after value reaches 100 (percent)
                     clearInterval(interval);
                     refreshStickyBannerAd();
-                    showStickyBannerAd();
+                    // showStickyBannerAd();
                     rewardedAd();
-                    // replayAd();
+                    loadReplayAd();
+                    
                     sendCustomAnalyticsEvent("game_load", {});
                     console.log("game_load event added");
 
                     sendCustomAnalyticsEvent("game_start", {});
                     console.log("game_start event added");
 
-                    sendCustomAnalyticsEvent('game_level', {level: level});
+                    sendCustomAnalyticsEvent('game_level', {level: level + 1});
                     console.log("game_level event added");
+
                 }
                 var newDate = Date.now();
                 var milliseconds = newDate - date;
@@ -1026,5 +962,7 @@
                 loader.value += seconds * 5;
             }
         </script>
+
+        <script>startGameScreen();</script>
     </body>
 </html>

@@ -1,10 +1,8 @@
-
 //bumperAd scripts start
 
 const isBumperAd = typeof BumperAd !== "undefined" ? true : false;
 const isSdkNew = typeof GlanceAndroidInterface !== "undefined" ? true : false;
 
-let isNormalGame = true; //true means playing in browser
 let bumperAdStatus = false;
 let bumperCallback = false;
 let isAdLoaded;
@@ -15,6 +13,8 @@ try {
 } catch (error) {
   console.log("LoadingPage macro missing from URL - ",error); 
 }
+
+let isNormalGame = (isBumperAd == true && isMRECEnabledOnLP != 'true') ? false : true; //true means playing in browser
 
 function sendCustomAnalyticsEvent(eventType, extras) {
   console.log("sendCustomAnalyticsEvent", eventType, extras);
