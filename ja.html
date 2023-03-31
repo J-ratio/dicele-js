@@ -418,7 +418,7 @@
                 <div class="w3-modal-content w3-animate-bottom w3-card-4">
                     <div class="help-banner">
                         <div class="banner-left"></div>
-                        <span class="banner-text">アソビカタ</span>
+                        <span class="banner-text">やり方</span>
                         <div class="banner-right"></div>
                     </div>
                     <div
@@ -427,12 +427,10 @@
                     >
                         &times;
                     </div>
-                    <span class="help-text"
-                        >21ムーブ イナイ ニ パズル オ トクメキロ</span
-                    >
+                    <span class="help-text">DICELEを21ムーブ以内に解きましょう</span>
                     <div class="help-grid">
                         <div class="help-grid-text">
-                            バンメン ニ ヒョウジ サレル ギョウ ト レツ ノ ガッケイ ノ ゴウケイ ニ ナルヨウ ダイス オ ナラベカエス
+                            それぞれの行と列に示された数字になるようにサイコロを動かそう
                         </div>
                         <div class="help-grid-sum-vertical">
                             <span class="help-grid-sum-value">15</span>
@@ -457,19 +455,17 @@
                         </div>
                     </div>
                     <div class="help-method-text">
-                        バンメン ノ ダイス オ イチ ツ オカエカエ デキマス。イトナ マジ ガ カワル ナド カンショウ シテ ミテ
+                        ボード上にあるサイコロのうち2つの位置を入れ替えられます。 サイコロの色が正解へのヒントになります。
                     </div>
                     <!-- TODO: Translate -->
-                    <span class="help-method-example-text">EXAMPLE</span>
+                    <span class="help-method-example-text">例</span>
                     <div class="help-example-group">
                         <div class="help-example-part">
                             <img
                                 src="/images/help_1.png"
                                 class="help-example-image"
                             />
-                            <span class="help-example-desc"
-                                >ダイス ガ セイチ ガ タッテ モ コウトウ ガ ナイ デス</span
-                            >
+                            <span class="help-example-desc">行、列ともに間違った位置にあるとき</span>
                         </div>
                         <div class="help-example-seperator"></div>
                         <div class="help-example-part">
@@ -477,9 +473,7 @@
                                 src="/images/help_2.png"
                                 class="help-example-image"
                             />
-                            <span class="help-example-desc"
-                                >ダイス ガ セイチ カ キョウトウ カ ニヤル デス</span
-                            >
+                            <span class="help-example-desc">行、列どちらかは正しい位置にあるとき</span>
                         </div>
                         <div class="help-example-seperator"></div>
                         <div class="help-example-part">
@@ -487,9 +481,7 @@
                                 src="/images/help_3.png"
                                 class="help-example-image"
                             />
-                            <span class="help-example-desc"
-                                >ダイス ガ セイチ ニ アリマス</span
-                            >
+                            <span class="help-example-desc">行、列ともに正しい位置にあるとき</span>
                         </div>
                     </div>
                 </div>
@@ -770,26 +762,23 @@
                 <div class="w3-modal-content w3-animate-bottom">
                     <div class="lose-banner">
                         <div class="banner-left"></div>
-                        <span class="banner-text">ムーブ ガ ナクナリマシタ</span>
+                        <span class="banner-text">ムーブを使い切りました</span>
                         <div class="banner-right"></div>
                     </div>
                     <div class="moves-container">
                         <span
                             class="lose-moves-left"
                             data-field="lose-moves-left"
-                            >0</span
-                        >
-                        <span class="lose-moves-text">ムーブ残り</span>
+                            >0</span>
+                        <span class="lose-moves-text">ムーブ</span>
                     </div>
-                    <span class="lose-moves-meta-text"
-                        >プレイ ヲ ツズケル タメ ニ ムーブ オ 5 ツ ソウジョウ</span
-                    >
+                    <span class="lose-moves-meta-text">ムーブ追加してプレイを続ける</span>
                     <div class="add-moves-button">
                         <img
                             src="/images/add_moves.png"
                             class="add-moves-icon"
                         />
-                        <span class="add-moves-text">ムーブ オ 5 ツ ソウジョウ</span>
+                        <span class="add-moves-text">ムープ追加してプレイを続ける</span>
                         <!-- TODO: Translate -->
                         <span class="add-meta-text">AD</span>
                     </div>
@@ -798,7 +787,7 @@
                             src="/images/retry_icon.png"
                             class="try-again-icon"
                         />
-                        <span class="retry-text">モウ イチド ツ トライ シテ クダサイ</span>
+                        <span class="retry-text">最初から</span>
                     </div>
                 </div>
             </div>
@@ -868,8 +857,7 @@
                         </div>
                     </div>
                     <span class="moves-text">
-                        <span class="moves-number"> 21 </span>
-                        ムーブ残り
+                        残り <span class="moves-number"> 21 </span> ムーブ
                     </span>
                     <div class="game-ad-box"></div>
                 </div>

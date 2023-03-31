@@ -1027,7 +1027,7 @@ document.querySelector(".add-moves-button").addEventListener("click", () => {
 });
 
 document.querySelector(".try-again-button").addEventListener("click", () => {
-    sendCustomAnalyticsEvent("game_end", {level: level, score: score, highScore: highScore,});
+    sendCustomAnalyticsEvent("game_end", {level: level + 1, score: score, highScore: highScore,});
     console.log("game_end event added");
 
     _triggerReason = "replay";
